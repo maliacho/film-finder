@@ -1,7 +1,7 @@
-var searchButtonEl = document.querySelector('#search-button');
-var searchInputEl = document.querySelector('#search-input');
+const searchButtonEl = document.querySelector('#search-button');
+const searchInputEl = document.querySelector('#search-input');
 
-searchHandler = function () {
+var buttonClickHandler = function () {
     var movieName = searchInputEl.value.trim();
     if (movieName) {
         getMovie(movieName);
@@ -17,4 +17,4 @@ var getMovie = function (movie){
         })
 };
 
-searchButtonEl.addEventListener('click', searchHandler);
+searchButtonEl.addEventListener('click', buttonClickHandler);
