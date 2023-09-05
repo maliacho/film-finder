@@ -1,7 +1,7 @@
 var searchButtonEl = document.querySelector('#search-button');
 var searchInputEl = document.querySelector('#search-input');
 
-function searchHandler () {
+searchHandler = function () {
     var movieName = searchInputEl.value.trim();
     if (movieName) {
         getMovie(movieName);
