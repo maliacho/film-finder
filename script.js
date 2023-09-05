@@ -30,8 +30,7 @@ function movieInfo(search) {
 // }
 
 function redirectUser() {
-    
+
 }
 
-searchButton.addEventListener('click', redirectUser)
 
