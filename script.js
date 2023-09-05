@@ -1,4 +1,3 @@
-let searchButton = document.querySelector('search-results');
 
 function movieInfo(search) {
     // creates a div in HTML to display movie information
