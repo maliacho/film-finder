@@ -5,7 +5,7 @@
     <title>FilmFinder</title>
     <!--link css and js correctly when done-->
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="script.js"></script>
+    <script defer src="script.js"></script>
 </head>
 <body>
     <header>
@@ -30,7 +30,18 @@
                 <!-- results -->
             </div>
         </section>
-    <!--add sections if needed(maybe movie suggestions) -->
+        <section id="suggested-movies" class="center">
+            <h2>Suggested Movies</h2>
+            <ul id="suggested-movie-items">
+                <!-- suggested movies -->
+                <li><a href="#">Suggested Movie 1</a></li>
+                <li><a href="#">Suggested Movie 2</a></li>
+                <li><a href="#">Suggested Movie 3</a></li>
+                <li><a href="#">Suggested Movie 4</a></li>
+                <!-- can add more if needed -->
+            </ul>
+        </section>
+        <!--add more sections if needed-->
     </main>
     <footer>
         <p>&copy; 2023 FilmFinder</p>
