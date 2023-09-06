@@ -1,5 +1,10 @@
 const searchButtonEl = document.querySelector('#search-button');
 const searchInputEl = document.querySelector('#search-input');
+const watchListButtonEl = document.querySelector('#open-watch-list');
+const watchListItemsEl = document.querySelector('#watch-list-items');
+
+//array for storing movies into watchlist
+let watchlist = [];
 
 var buttonClickHandler = function () {
     var movieName = searchInputEl.value.trim();
@@ -16,7 +21,37 @@ var getMovie = function (movie){
             console.log(response);
         })
 };
+// add movie to watchlist function
+function addToWatchlist(movie) {
+    // if movie is still in the watchlist
+    if (!watchlist.some((item) => item.Title === movie.Title)) {
+        watchlist.push(movie);
+        renderWatchlist();
+    }
+}
+// remove movie from watch list
+function removeFromWatchlist(movieTitle) {
+    watchlist = watchlist.filter((item) => item.Title !== movieTitle);
+    renderWatchlist();
+}
 
+// render watchlist
+function renderWatchlist() {
+    // clear watchlist
+    watchListItemsEl.innerHTML = '';
+
+    // loop thru watchlist and display movies
+    watchlist.forEach((movie) => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+            ${movie.Title}
+            <button class='remove-button' onclick='removeFromWatchlist('${movie.Title}')'>Remove</button>
+        `;
+        watchListItemsEl.appendChild(listItem);
+    });
+}
+
+watchListButtonEl.addEventListener('click', renderWatchlist);
 searchButtonEl.addEventListener('click', buttonClickHandler);
 
 function movieInfo(search) {
