@@ -8,6 +8,7 @@ const searchList = document.querySelector('#search-list');
 let watchlist = [];
 let movies = [];
 
+
 var buttonClickHandler = function () {
     var searchTerm = searchInputEl.value.trim();
     if (searchTerm) {
@@ -25,9 +26,10 @@ var findMovie = function (searchTerm){
         .then(function(data){
             console.log(data)
             console.log(data.Search);
-            for (var i=0; i < data.length; i++) {
+            for (var i=0; i < data.Search.length; i++) {
                 var listItem = document.createElement('li');
-                listItem.textContent = data.title;
+                listItem.textContent = data.Search[i].title;
+                console.log(data.Search[1].title);
                 searchList.appendChild(listItem);
             }
         })
@@ -36,6 +38,7 @@ var findMovie = function (searchTerm){
 var displayMovies = function(){
 
 }
+
 // add movie to watchlist function
 function addToWatchlist(movie) {
     // if movie is still in the watchlist
