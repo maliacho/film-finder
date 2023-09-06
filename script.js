@@ -1,3 +1,4 @@
+const apiKey = 'a9f162e7'
 const searchButtonEl = document.querySelector('#search-button');
 const searchInputEl = document.querySelector('#search-input');
 
@@ -9,11 +10,14 @@ var buttonClickHandler = function () {
     }
 };
 
-var getMovie = function (movie){
-    var apiUrl = 'https://www.omdbapi.com/?apikey=27d565fe&s=' + movie;
+var getMovie = function (searchTerm){
+    var apiUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchTerm}`;
     fetch(apiUrl)
         .then(function (response) {
-            console.log(response);
+            return response.json();
+        })
+        .then(function(data){
+            console.log(data)
         })
 };
 
