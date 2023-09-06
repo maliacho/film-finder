@@ -3,10 +3,9 @@ const searchButtonEl = document.querySelector('#search-button');
 const searchInputEl = document.querySelector('#search-input');
 const watchListButtonEl = document.querySelector('#open-watch-list');
 const watchListItemsEl = document.querySelector('#watch-list-items');
-
+const searchList = document.querySelector('#search-list');
 //array for storing movies into watchlist
 let watchlist = [];
-const searchList = document.querySelector('#search-list');
 let movies = [];
 
 var buttonClickHandler = function () {
@@ -49,7 +48,6 @@ function removeFromWatchlist(movieTitle) {
     watchlist = watchlist.filter((item) => item.Title !== movieTitle);
     renderWatchlist();
 }
-
 // render watchlist
 function renderWatchlist() {
     // clear watchlist
