@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test2</title>
+    <title>test1</title>
     <!-- Include Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
@@ -21,24 +21,27 @@
             <button class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600">Search</button>
         </div>
 
-        <!-- To-Do List (Floating Left) -->
-        <div class="mt-8 float-left w-1/4 mr-4">
-            <div class="relative">
-                <button class="block text-gray-700 hover:text-gray-900 focus:text-gray-900 focus:outline-none">
-                    To-Do List
-                </button>
-                <ul class="absolute left-0 mt-2 py-2 bg-white border rounded-lg shadow-lg hidden">
-                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-200">Task 1</a></li>
-                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-200">Task 2</a></li>
-                    <!-- Add more tasks here -->
-                </ul>
+        <!-- To-Do List -->
+        <div class="mt-8 flex">
+            <!-- Dropdown Menu (Left Side) -->
+            <div class="w-1/4 mr-4">
+                <div class="relative">
+                    <button class="block text-gray-700 hover:text-gray-900 focus:text-gray-900 focus:outline-none">
+                        To-Do List
+                    </button>
+                    <ul class="absolute left-0 mt-2 py-2 bg-white border rounded-lg shadow-lg hidden">
+                        <li><a href="#" class="block px-4 py-2 hover:bg-gray-200">Task 1</a></li>
+                        <li><a href="#" class="block px-4 py-2 hover:bg-gray-200">Task 2</a></li>
+                        <!-- Add more tasks here -->
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <!-- Search Results (Right Side) -->
-        <div class="mt-8 w-3/4">
-            <h2 class="text-xl font-semibold">Search Results</h2>
-            <!-- Add your search results here -->
+            <!-- Search Results (Right Side) -->
+            <div class="w-3/4">
+                <h2 class="text-xl font-semibold">Search Results</h2>
+                <!-- Add your search results here -->
+            </div>
         </div>
     </div>
 
