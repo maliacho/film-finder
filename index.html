@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!--link css and js correctly when done
     (no more need for css link)-->
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="./Assets/style.css">
     <script defer src="script.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
 
@@ -22,8 +22,8 @@
         <section id="watch-list" class="top-left">
             <h2>My Watch List</h2>
             <ul id="watch-list-items">
-                <!--watchlist items displayed here-->
             </ul>
+            <!--watchlist items displayed here-->
             <button id="open-watch-list">Open Watch List</button>
         </section>
     
@@ -33,6 +33,7 @@
             <input type="text" id="search-input" class="w-full border rounded-l-lg py-2 px-4" placeholder="Enter movie name">
             <button id="search-button" class="full border rounded-r-lg px-4 py-2">Search</button>
             <div id="search-results">
+                <ul id="search-list"></ul>
                 <!-- results -->
             </div>
         </section>
