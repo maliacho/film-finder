@@ -1,3 +1,4 @@
+const apiKey = 'a9f162e7'
 const searchButtonEl = document.querySelector('#search-button');
 const searchInputEl = document.querySelector('#search-input');
 const watchListButtonEl = document.querySelector('#open-watch-list');
@@ -5,22 +6,36 @@ const watchListItemsEl = document.querySelector('#watch-list-items');
 
 //array for storing movies into watchlist
 let watchlist = [];
+const searchList = document.querySelector('#search-list');
+let movies = [];
 
 var buttonClickHandler = function () {
-    var movieName = searchInputEl.value.trim();
-    if (movieName) {
-        getMovie(movieName);
+    var searchTerm = searchInputEl.value.trim();
+    if (searchTerm) {
+        findMovie(searchTerm);
         searchInputEl.value = '';
     }
 };
 
-var getMovie = function (movie){
-    var apiUrl = 'https://www.omdbapi.com/?apikey=27d565fe&s=' + movie;
+var findMovie = function (searchTerm){
+    var apiUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchTerm}`;
     fetch(apiUrl)
         .then(function (response) {
-            console.log(response);
+            return response.json();
+        })
+        .then(function(data){
+            console.log(data);
+            for (var i=0; i < data.length; i++) {
+                var listItem = document.createElement('li');
+                listItem.textContent = data[i].title;
+                searchList.appendChild(listItem);
+            }
         })
 };
+
+var displayMovies = function(){
+
+}
 // add movie to watchlist function
 function addToWatchlist(movie) {
     // if movie is still in the watchlist
@@ -54,10 +69,11 @@ function renderWatchlist() {
 watchListButtonEl.addEventListener('click', renderWatchlist);
 searchButtonEl.addEventListener('click', buttonClickHandler);
 
-function movieInfo(search) {
+function movieInfo(movie) {
+
     // creates a div in HTML to display movie information
     let resultInfo = document.createElement('div');
-    resultInfo.classList.add(); // @@TODO CSS parameters needed for styling
+    resultInfo.classList.add(); // @TODO CSS parameters needed for styling
 
     // creates a heading for the result info 'Rating'
     let ratingEl = document.createElement('h3');
@@ -65,7 +81,7 @@ function movieInfo(search) {
 
     //creates a p tag for the movie rating
     let movieRating = document.createElement('p');
-    movieRating.textContent = search.rated;
+    movieRating.textContent = movie.rated;
 
     // creates a heading for the result info 'Rotten Tomatoes Score'
     let scoreEl = document.createElement('h3');
@@ -73,18 +89,30 @@ function movieInfo(search) {
 
     // creates a p tag for the Rotten Tomatoes Score
     let tomatoScore = document.createElement('p');
-    tomatoScore.textContent = search.rotten - tomatoes;
+    tomatoScore.textContent = movie.rotten - tomatoes;
 
 };
 
-// function playTrailer() {
-//      // creates a link to the movie trailer
-//  let trailerEl = document.createElement('href')
+
+function playTrailer(movie) {
+    // Links YouTube API and fetches data 
+    let youTubeApi = 'https://www.youtube.com/iframe_api' + movie;
+    fetch(youTubeApi)
+        .then(function(response) {
+            response.json().then(function(data){
+                movieInfo(data);
+            });
+        });
+
+    // creates a link to the movie trailer
+    let trailerEl = document.createElement('a')
+    trailerEl.setAttribute('href', 'https://youtube.com/' + movie + '/trailer');
+    trailerEl.setAttribute('target', '_blank');
+
+};
+
+// function redirectUser() {
 
 // }
-
-function redirectUser() {
-
-}
 
 
