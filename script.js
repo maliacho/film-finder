@@ -1,7 +1,11 @@
 const omdbApiKey = 'a9f162e7'
 const searchButtonEl = document.querySelector('#search-button');
 const searchInputEl = document.querySelector('#search-input');
+const watchListButtonEl = document.querySelector('#open-watch-list');
+const watchListItemsEl = document.querySelector('#watch-list-items');
 const searchList = document.querySelector('#search-list');
+//array for storing movies into watchlist
+let watchlist = [];
 let movies = [];
 
 var buttonClickHandler = function () {
@@ -32,7 +36,36 @@ var findMovie = function (searchTerm){
 var displayMovies = function(){
 
 }
+// add movie to watchlist function
+function addToWatchlist(movie) {
+    // if movie is still in the watchlist
+    if (!watchlist.some((item) => item.Title === movie.Title)) {
+        watchlist.push(movie);
+        renderWatchlist();
+    }
+}
+// remove movie from watch list
+function removeFromWatchlist(movieTitle) {
+    watchlist = watchlist.filter((item) => item.Title !== movieTitle);
+    renderWatchlist();
+}
+// render watchlist
+function renderWatchlist() {
+    // clear watchlist
+    watchListItemsEl.innerHTML = '';
 
+    // loop thru watchlist and display movies
+    watchlist.forEach((movie) => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+            ${movie.Title}
+            <button class='remove-button' onclick='removeFromWatchlist('${movie.Title}')'>Remove</button>
+        `;
+        watchListItemsEl.appendChild(listItem);
+    });
+}
+
+watchListButtonEl.addEventListener('click', renderWatchlist);
 searchButtonEl.addEventListener('click', buttonClickHandler);
 
 function movieInfo(movie) {
