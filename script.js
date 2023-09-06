@@ -1,25 +1,36 @@
 const apiKey = 'a9f162e7'
 const searchButtonEl = document.querySelector('#search-button');
 const searchInputEl = document.querySelector('#search-input');
+const searchList = document.querySelector('#search-list');
+let movies = [];
 
 var buttonClickHandler = function () {
-    var movieName = searchInputEl.value.trim();
-    if (movieName) {
-        getMovie(movieName);
+    var searchTerm = searchInputEl.value.trim();
+    if (searchTerm) {
+        findMovie(searchTerm);
         searchInputEl.value = '';
     }
 };
 
-var getMovie = function (searchTerm){
+var findMovie = function (searchTerm){
     var apiUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchTerm}`;
     fetch(apiUrl)
         .then(function (response) {
             return response.json();
         })
         .then(function(data){
-            console.log(data)
+            console.log(data);
+            for (var i=0; i < data.length; i++) {
+                var listItem = document.createElement('li');
+                listItem.textContent = data[i].title;
+                searchList.appendChild(listItem);
+            }
         })
 };
+
+var displayMovies = function(){
+
+}
 
 searchButtonEl.addEventListener('click', buttonClickHandler);
 
