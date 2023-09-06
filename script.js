@@ -45,7 +45,14 @@ function movieInfo(movie) {
 
 
 function playTrailer(movie) {
-    let youTubeApi = 
+    // Links YouTube API and fetches data 
+    let youTubeApi = 'https://www.youtube.com/iframe_api' + movie;
+    fetch(youTubeApi)
+        .then(function(response) {
+            response.json().then(function(data){
+                movieInfo(data);
+            });
+        });
 
     // creates a link to the movie trailer
     let trailerEl = document.createElement('a')
@@ -54,8 +61,8 @@ function playTrailer(movie) {
 
 };
 
-function redirectUser() {
+// function redirectUser() {
 
-}
+// }
 
 
