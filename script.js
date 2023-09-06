@@ -19,10 +19,11 @@ var getMovie = function (movie){
 
 searchButtonEl.addEventListener('click', buttonClickHandler);
 
-function movieInfo(search) {
+function movieInfo(movie) {
+
     // creates a div in HTML to display movie information
     let resultInfo = document.createElement('div');
-    resultInfo.classList.add(); // @@TODO CSS parameters needed for styling
+    resultInfo.classList.add(); // @TODO CSS parameters needed for styling
 
     // creates a heading for the result info 'Rating'
     let ratingEl = document.createElement('h3');
@@ -30,7 +31,7 @@ function movieInfo(search) {
 
     //creates a p tag for the movie rating
     let movieRating = document.createElement('p');
-    movieRating.textContent = search.rated;
+    movieRating.textContent = movie.rated;
 
     // creates a heading for the result info 'Rotten Tomatoes Score'
     let scoreEl = document.createElement('h3');
@@ -38,15 +39,18 @@ function movieInfo(search) {
 
     // creates a p tag for the Rotten Tomatoes Score
     let tomatoScore = document.createElement('p');
-    tomatoScore.textContent = search.rotten - tomatoes;
+    tomatoScore.textContent = movie.rotten - tomatoes;
 
 };
 
-// function playTrailer() {
-//      // creates a link to the movie trailer
-//  let trailerEl = document.createElement('href')
 
-// }
+function playTrailer(movie) {
+    // creates a link to the movie trailer
+    let trailerEl = document.createElement('a')
+    trailerEl.setAttribute('href', 'https://youtube.com/' + movie + '/trailer');
+    trailerEl.setAttribute('target', '_blank');
+
+};
 
 function redirectUser() {
 
