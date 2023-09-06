@@ -67,6 +67,7 @@ function playTrailer(movie) {
             response.json().then(function(data){
                 movieInfo(data);
             });
+    console.log(response);
         });
 
     // creates a link to the movie trailer
@@ -76,8 +77,6 @@ function playTrailer(movie) {
 
 };
 
-// function redirectUser() {
 
-// }
 
 
