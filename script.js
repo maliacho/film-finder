@@ -8,27 +8,28 @@ const searchList = document.querySelector('#search-list');
 let watchlist = [];
 let movies = [];
 
-
+// search on button click (add option for enterkey?)
 var buttonClickHandler = function () {
-    var searchTerm = searchInputEl.value.trim();
+    var searchTerm = searchInputEl.value.trim(); 
     if (searchTerm) {
         findMovie(searchTerm);
-        searchInputEl.value = '';
+        searchInputEl.value = ''; // clear search field
     }
 };
-
+// search for movie by name and display search list
 var findMovie = function (searchTerm){
     var apiUrl = `http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchTerm}`;
     fetch(apiUrl)
         .then(function (response) {
             return response.json();
         })
-        .then(function(data){
+        .then(function(data){ // need to access search array in data
             console.log(data)
             console.log(data.Search);
             for (var i=0; i < data.Search.length; i++) {
                 var listItem = document.createElement('li');
-                listItem.textContent = data.Search[i].title;
+                
+                listItem.textContent = 'search result';
                 console.log(data.Search[1].title);
                 searchList.appendChild(listItem);
             }
