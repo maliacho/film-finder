@@ -1,4 +1,4 @@
-const apiKey = 'a9f162e7'
+const omdbApiKey = 'a9f162e7'
 const searchButtonEl = document.querySelector('#search-button');
 const searchInputEl = document.querySelector('#search-input');
 const watchListButtonEl = document.querySelector('#open-watch-list');
@@ -8,25 +8,29 @@ const searchList = document.querySelector('#search-list');
 let watchlist = [];
 let movies = [];
 
+// search on button click (add option for enterkey?)
 var buttonClickHandler = function () {
-    var searchTerm = searchInputEl.value.trim();
+    var searchTerm = searchInputEl.value.trim(); 
     if (searchTerm) {
         findMovie(searchTerm);
-        searchInputEl.value = '';
+        searchInputEl.value = ''; // clear search field
     }
 };
-
+// search for movie by name and display search list
 var findMovie = function (searchTerm){
-    var apiUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchTerm}`;
+    var apiUrl = `http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchTerm}`;
     fetch(apiUrl)
         .then(function (response) {
             return response.json();
         })
-        .then(function(data){
-            console.log(data);
-            for (var i=0; i < data.length; i++) {
+        .then(function(data){ // need to access search array in data
+            console.log(data)
+            console.log(data.Search);
+            for (var i=0; i < data.Search.length; i++) {
                 var listItem = document.createElement('li');
-                listItem.textContent = data[i].title;
+                
+                listItem.textContent = 'search result';
+                console.log(data.Search[1].title);
                 searchList.appendChild(listItem);
             }
         })
@@ -35,6 +39,7 @@ var findMovie = function (searchTerm){
 var displayMovies = function(){
 
 }
+
 // add movie to watchlist function
 function addToWatchlist(movie) {
     // if movie is still in the watchlist
