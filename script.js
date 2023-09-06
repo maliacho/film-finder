@@ -45,6 +45,8 @@ function movieInfo(movie) {
 
 
 function playTrailer(movie) {
+    let youTubeApi = 
+
     // creates a link to the movie trailer
     let trailerEl = document.createElement('a')
     trailerEl.setAttribute('href', 'https://youtube.com/' + movie + '/trailer');
