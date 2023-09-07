@@ -27,6 +27,7 @@ let findMovie = function (searchTerm) {
             console.log(data)
             const movies = data.Search;
             for (let i = 0; i < movies.length; i++) {
+                 
                 if (movies[i].Type === 'movie') {
                     let searchResultsContainer = document.createElement('div');
                     searchResultsContainer.className = 'search-result-item';
@@ -82,7 +83,7 @@ searchButtonEl.addEventListener('click', buttonClickHandler);
 
 
 function movieInfo(imdbID) {
-    let moreInfo = `http://www.omdbapi.com/?type=movie&apikey=${omdbApiKey}&i=${imdbID}` // @TODO need to figure out how to isolate imdb key
+    let moreInfo = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&i=${imdbID}` // @TODO need to figure out how to isolate imdb key
 
     // fetches data from imdb ID
     fetch(moreInfo)
