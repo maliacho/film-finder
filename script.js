@@ -10,37 +10,38 @@ let movies = [];
 
 // search on button click (add option for enterkey?)
 let buttonClickHandler = function () {
-    let searchTerm = searchInputEl.value.trim(); 
+    let searchTerm = searchInputEl.value.trim();
     if (searchTerm) {
         findMovie(searchTerm);
         searchInputEl.value = ''; // clear search field
     }
 };
 // search for movie by name and display search list
-let findMovie = function (searchTerm){
+let findMovie = function (searchTerm) {
     let apiUrl = `http://www.omdbapi.com/?type=movie&apikey=${omdbApiKey}&s=${searchTerm}`;
     fetch(apiUrl)
         .then(function (response) {
             return response.json();
         })
-        .then(function(data){ // need to access search array in data
+        .then(function (data) { // need to access search array in data
             console.log(data)
             const movies = data.Search;
-            for (let i=0; i < movies.length; i++) {
+            for (let i = 0; i < movies.length; i++) {
                 if (movies[i].Type === 'movie') {
-                let searchResultsContainer = document.createElement('div');
-                searchResultsContainer.className = 'search-result-item';
+                    let searchResultsContainer = document.createElement('div');
+                    searchResultsContainer.className = 'search-result-item';
 
-                let titleEl = document.createElement('div');
-                titleEl.innerText = movies[i].Title + movies[i].Year;
+                    let titleEl = document.createElement('div');
+                    titleEl.innerText = movies[i].Title + movies[i].Year;
 
-                let posterEl = document.createElement('img');
-                posterEl.src = movies[i].Poster;
+                    let posterEl = document.createElement('img');
+                    posterEl.src = movies[i].Poster;
 
-                searchResultsContainer.appendChild(titleEl);
-                searchResultsContainer.appendChild(posterEl);
-                searchList.appendChild(searchResultsContainer);
-            }}
+                    searchResultsContainer.appendChild(titleEl);
+                    searchResultsContainer.appendChild(posterEl);
+                    searchList.appendChild(searchResultsContainer);
+                }
+            }
         })
 };
 
@@ -79,25 +80,55 @@ function renderWatchlist() {
 watchListButtonEl.addEventListener('click', renderWatchlist);
 searchButtonEl.addEventListener('click', buttonClickHandler);
 
+
+function movieInfo(imdbID) {
+    let moreInfo = `http://www.omdbapi.com/?type=movie&apikey=${omdbApiKey}&i=${imdbID}` // @TODO need to figure out how to isolate imdb key
+
+    // fetches data from imdb ID
+    fetch(moreInfo)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function(data) {
+            const info = data.movie
+
+            // creates an unordered list to store the data 
+            let movieInfoResults = document.createElement('ul');
+
+            // adds values to ul 
+            let ratingEl = document.createElement('li');
+            ratingEl.textContent = info[i].Rated;
+
+            let plotEl = document.createElement('li');
+            plotEl.textContent = info[i].Plot;
+
+            let criticsEl = document.createElement('li');
+            criticsEl.textContent = info[i].Ratings
+
+            movieInfoResults.appendChild(ratingEl);
+            movieInfoResults.appendChild(plotEl);
+            movieInfoResults.appendChild(criticsEl);       
+        });
+};
 // function movieInfo(movie) {
 
-    // creates a div in HTML to display movie information
-    // let resultInfo = document.createElement('div');
-    // resultInfo.classList.add(); // @TODO CSS parameters needed for styling
+// creates a div in HTML to display movie information
+// let resultInfo = document.createElement('div');
+// resultInfo.classList.add(); // @TODO CSS parameters needed for styling
 
-    // creates a heading for the result info 'Rating'
-    // let ratingEl = document.createElement('h3');
-    // ratingEl.textContent = ('Rating');
+// creates a heading for the result info 'Rating'
+// let ratingEl = document.createElement('h3');
+// ratingEl.textContent = ('Rating');
 
-    //creates a p tag for the movie rating
-    // let movieRating = document.createElement('p');
-    // movieRating.textContent = movie.rated;
+//creates a p tag for the movie rating
+// let movieRating = document.createElement('p');
+// movieRating.textContent = movie.rated;
 
-    // creates a heading for the result info 'Rotten Tomatoes Score'
-    // let scoreEl = document.createElement('h3');
-    // scoreEl.textContent = ('Rotten Tomatoes Score');
+// creates a heading for the result info 'Rotten Tomatoes Score'
+// let scoreEl = document.createElement('h3');
+// scoreEl.textContent = ('Rotten Tomatoes Score');
 
-    // creates a p tag for the Rotten Tomatoes Score
+// creates a p tag for the Rotten Tomatoes Score
 //     let tomatoScore = document.createElement('p');
 //     tomatoScore.textContent = movie.rotten - tomatoes;
 
@@ -108,8 +139,8 @@ function playTrailer(movie) {
     // Links YouTube API and fetches data 
     let youTubeApi = 'https://www.youtube.com/iframe_api' + movie;
     fetch(youTubeApi)
-        .then(function(response) {
-            response.json().then(function(data){
+        .then(function (response) {
+            response.json().then(function (data) {
                 movieInfo(data);
             });
         });
