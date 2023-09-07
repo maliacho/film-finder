@@ -5,12 +5,13 @@
     <title>FilmFinder</title>
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- additional css file -->
+    <!--link css and js correctly when done
+    (no more need for css link)-->
     <link rel="stylesheet" type="text/css" href="./Assets/style.css">
-    <script defer src="script.js"></script>
+    <script defer src="script copy.js"></script>
+    <!-- <script defer src="script.js"></script> -->
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
-
 <body>
 <div class="text-center py-4 mx-auto max-w-screen-lg p-4">
     <header>
@@ -50,13 +51,13 @@
             <div id="error-message" style="color: red;"></div>
         </section>
         <section id="suggested-movies" class="center">
-            <h2>Our Favorite Movies</h2>
+            <h2>Suggested Movies</h2>
             <ul id="suggested-movie-items">
                 <!-- suggested movies -->
-                <li><a href="#">Nathan's Choice</a></li>
-                <li><a href="#">Moe's Choice</a></li>
-                <li><a href="#">Daniel's Choice</a></li>
-                <li><a href="#">Malia's Choice</a></li>
+                <li><a href="#">Suggested Movie 1</a></li>
+                <li><a href="#">Suggested Movie 2</a></li>
+                <li><a href="#">Suggested Movie 3</a></li>
+                <li><a href="#">Suggested Movie 4</a></li>
                 <!-- can add more if needed -->
             </ul>
         </section>

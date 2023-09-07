@@ -11,40 +11,19 @@ let movies = [];
 
 // search on button click (add option for enterkey?)
 let buttonClickHandler = function () {
-    let searchTerm = searchInputEl.value.trim();
+    let searchTerm = searchInputEl.value.trim(); 
     if (searchTerm) {
         findMovie(searchTerm);
         searchInputEl.value = ''; // clear search field
     }
 };
 // search for movie by name and display search list
-let findMovie = function (searchTerm) {
+let findMovie = function (searchTerm){
     let apiUrl = `http://www.omdbapi.com/?type=movie&apikey=${omdbApiKey}&s=${searchTerm}`;
     fetch(apiUrl)
         .then(function (response) {
             return response.json();
         })
-<<<<<<< HEAD
-        .then(function (data) { // need to access search array in data
-            console.log(data)
-            const movies = data.Search;
-            for (let i = 0; i < movies.length; i++) {
-                 
-                if (movies[i].Type === 'movie') {
-                    let searchResultsContainer = document.createElement('div');
-                    searchResultsContainer.className = 'search-result-item';
-
-                    let titleEl = document.createElement('div');
-                    titleEl.innerText = movies[i].Title + movies[i].Year;
-
-                    let posterEl = document.createElement('img');
-                    posterEl.src = movies[i].Poster;
-
-                    searchResultsContainer.appendChild(titleEl);
-                    searchResultsContainer.appendChild(posterEl);
-                    searchList.appendChild(searchResultsContainer);
-                }
-=======
         .then(function(data){ // need to access search array in data
             if (data.Response === 'True') {
                 // clear error message if movies found
@@ -73,7 +52,6 @@ let findMovie = function (searchTerm) {
                 errorMessageEl.textContent = 'Movie not found.';
                 // clear previous search results
                 searchList.innerHTML = '';
->>>>>>> c135b5b2747241b8bf2f97d0e4238323cee591cd
             }
         })
         .catch(function (error) {
@@ -82,8 +60,6 @@ let findMovie = function (searchTerm) {
             console.error(error);
         });
 };
-
-
 
 
 // add movie to watchlist function
@@ -118,67 +94,37 @@ function renderWatchlist() {
 watchListButtonEl.addEventListener('click', renderWatchlist);
 searchButtonEl.addEventListener('click', buttonClickHandler);
 
+function movieInfo(movie) {
 
-function movieInfo(imdbID) {
-    let moreInfo = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&i=${imdbID}` // @TODO need to figure out how to isolate imdb key
+    // creates a div in HTML to display movie information
+    let resultInfo = document.createElement('div');
+    resultInfo.classList.add(); // @TODO CSS parameters needed for styling
 
-    // fetches data from imdb ID
-    fetch(moreInfo)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function(data) {
-            const info = data.movie
+    // creates a heading for the result info 'Rating'
+    let ratingEl = document.createElement('h3');
+    ratingEl.textContent = ('Rating');
 
-            // creates an unordered list to store the data 
-            let movieInfoResults = document.createElement('ul');
+    //creates a p tag for the movie rating
+    let movieRating = document.createElement('p');
+    movieRating.textContent = movie.rated;
 
-            // adds values to ul 
-            let ratingEl = document.createElement('li');
-            ratingEl.textContent = info[i].Rated;
+    // creates a heading for the result info 'Rotten Tomatoes Score'
+    let scoreEl = document.createElement('h3');
+    scoreEl.textContent = ('Rotten Tomatoes Score');
 
-            let plotEl = document.createElement('li');
-            plotEl.textContent = info[i].Plot;
+    // creates a p tag for the Rotten Tomatoes Score
+    let tomatoScore = document.createElement('p');
+    tomatoScore.textContent = movie.rotten - tomatoes;
 
-            let criticsEl = document.createElement('li');
-            criticsEl.textContent = info[i].Ratings
-
-            movieInfoResults.appendChild(ratingEl);
-            movieInfoResults.appendChild(plotEl);
-            movieInfoResults.appendChild(criticsEl);       
-        });
 };
-// function movieInfo(movie) {
-
-// creates a div in HTML to display movie information
-// let resultInfo = document.createElement('div');
-// resultInfo.classList.add(); // @TODO CSS parameters needed for styling
-
-// creates a heading for the result info 'Rating'
-// let ratingEl = document.createElement('h3');
-// ratingEl.textContent = ('Rating');
-
-//creates a p tag for the movie rating
-// let movieRating = document.createElement('p');
-// movieRating.textContent = movie.rated;
-
-// creates a heading for the result info 'Rotten Tomatoes Score'
-// let scoreEl = document.createElement('h3');
-// scoreEl.textContent = ('Rotten Tomatoes Score');
-
-// creates a p tag for the Rotten Tomatoes Score
-//     let tomatoScore = document.createElement('p');
-//     tomatoScore.textContent = movie.rotten - tomatoes;
-
-// };
 
 
 function playTrailer(movie) {
     // Links YouTube API and fetches data 
     let youTubeApi = 'https://www.youtube.com/iframe_api' + movie;
     fetch(youTubeApi)
-        .then(function (response) {
-            response.json().then(function (data) {
+        .then(function(response) {
+            response.json().then(function(data){
                 movieInfo(data);
             });
         });
@@ -190,8 +136,6 @@ function playTrailer(movie) {
 
 };
 
-<<<<<<< HEAD
-=======
 // event listener for pressing Enter to search
 searchInputEl.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
@@ -202,6 +146,5 @@ searchInputEl.addEventListener("keydown", (event) => {
 // function redirectUser() {
 
 // }
->>>>>>> c135b5b2747241b8bf2f97d0e4238323cee591cd
 
 
