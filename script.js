@@ -9,36 +9,41 @@ let watchlist = [];
 let movies = [];
 
 // search on button click (add option for enterkey?)
-var buttonClickHandler = function () {
-    var searchTerm = searchInputEl.value.trim(); 
+let buttonClickHandler = function () {
+    let searchTerm = searchInputEl.value.trim(); 
     if (searchTerm) {
         findMovie(searchTerm);
         searchInputEl.value = ''; // clear search field
     }
 };
 // search for movie by name and display search list
-var findMovie = function (searchTerm){
-    var apiUrl = `http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchTerm}`;
+let findMovie = function (searchTerm){
+    let apiUrl = `http://www.omdbapi.com/?type=movie&apikey=${omdbApiKey}&s=${searchTerm}`;
     fetch(apiUrl)
         .then(function (response) {
             return response.json();
         })
         .then(function(data){ // need to access search array in data
             console.log(data)
-            console.log(data.Search);
-            for (var i=0; i < data.Search.length; i++) {
-                var listItem = document.createElement('li');
-                
-                listItem.textContent = 'search result';
-                console.log(data.Search[1].title);
-                searchList.appendChild(listItem);
-            }
+            const movies = data.Search;
+            for (let i=0; i < movies.length; i++) {
+                if (movies[i].Type === 'movie') {
+                let searchResultsContainer = document.createElement('div');
+                searchResultsContainer.className = 'search-result-item';
+
+                let titleEl = document.createElement('div');
+                titleEl.innerText = movies[i].Title + movies[i].Year;
+
+                let posterEl = document.createElement('img');
+                posterEl.src = movies[i].Poster;
+
+                searchResultsContainer.appendChild(titleEl);
+                searchResultsContainer.appendChild(posterEl);
+                searchList.appendChild(searchResultsContainer);
+            }}
         })
 };
 
-var displayMovies = function(){
-
-}
 
 // add movie to watchlist function
 function addToWatchlist(movie) {
