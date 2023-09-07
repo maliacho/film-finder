@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>FilmFinder</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css">
+    <link rel="stylesheet" type="text/css" href="./Assets/style.css">
+    <script defer src="script.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- <style>
+        /* Custom CSS for watchlist */
+        #watch-list {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 25%;
+            overflow-y: auto; /* Add scroll if content overflows */
+            background-color: #fff;
+            border-right: 1px solid #ddd;
+            padding: 1rem;
+        }
+
+        /* Adjust the main content to account for the fixed watchlist */
+        main {
+            margin-left: 25%; /* Match the width of the watchlist */
+            padding: 1rem;
+        }
+    </style> -->
+</head>
+<body class="bg-gray-100">
+<div class="flex">
+    <section id="watch-list" class="top-left">
+        <h2>My Watch List</h2>
+        <ul id="watch-list-items">
+        </ul>
+        <!--watchlist items displayed here-->
+        <button id="open-watch-list">Open Watch List</button>
+    </section>
+</div>
+          
+    </section>
+
+    <main>
+        <header class="mb-4">
+            <h1>FilmFinder</h1>
+        </header>
+
+        <!-- Movie search area -->
+        <section id="movie-search" class="mb-4">
+            <h2 class="mb-2">Search for a Movie</h2>
+            <div class="flex">
+                <input type="text" id="search-input" placeholder="Enter movie name" class="mr-2 w-full py-2 px-4 rounded-md border border-gray-300">
+                <button id="search-button" class="py-2 px-4 bg-blue-500 text-white rounded-md">Search</button>
+            </div>
+            <div id="search-results" class="mt-4">
+                <div id="search-list"></div>
+                <!-- results -->
+            </div>
+        </section>
+
+        <section id="suggested-movies" class="text-center">
+            <h2>Suggested Movies</h2>
+            <ul id="suggested-movie-items">
+                <!-- suggested movies -->
+                <li><a href="#">Suggested Movie 1</a></li>
+                <li><a href="#">Suggested Movie 2</a></li>
+                <li><a href="#">Suggested Movie 3</a></li>
+                <li><a href="#">Suggested Movie 4</a></li>
+                <!-- can add more if needed -->
+            </ul>
+        </section>
+        <!-- add more sections if needed -->
+    </main>
+</div>
+<footer class="text-center py-4">
+    <p>&copy; 2023 FilmFinder</p>
+</footer>
+</body>
+</html>
