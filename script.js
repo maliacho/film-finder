@@ -79,29 +79,29 @@ function renderWatchlist() {
 watchListButtonEl.addEventListener('click', renderWatchlist);
 searchButtonEl.addEventListener('click', buttonClickHandler);
 
-function movieInfo(movie) {
+// function movieInfo(movie) {
 
     // creates a div in HTML to display movie information
-    let resultInfo = document.createElement('div');
-    resultInfo.classList.add(); // @TODO CSS parameters needed for styling
+    // let resultInfo = document.createElement('div');
+    // resultInfo.classList.add(); // @TODO CSS parameters needed for styling
 
     // creates a heading for the result info 'Rating'
-    let ratingEl = document.createElement('h3');
-    ratingEl.textContent = ('Rating');
+    // let ratingEl = document.createElement('h3');
+    // ratingEl.textContent = ('Rating');
 
     //creates a p tag for the movie rating
-    let movieRating = document.createElement('p');
-    movieRating.textContent = movie.rated;
+    // let movieRating = document.createElement('p');
+    // movieRating.textContent = movie.rated;
 
     // creates a heading for the result info 'Rotten Tomatoes Score'
-    let scoreEl = document.createElement('h3');
-    scoreEl.textContent = ('Rotten Tomatoes Score');
+    // let scoreEl = document.createElement('h3');
+    // scoreEl.textContent = ('Rotten Tomatoes Score');
 
     // creates a p tag for the Rotten Tomatoes Score
-    let tomatoScore = document.createElement('p');
-    tomatoScore.textContent = movie.rotten - tomatoes;
+//     let tomatoScore = document.createElement('p');
+//     tomatoScore.textContent = movie.rotten - tomatoes;
 
-};
+// };
 
 
 function playTrailer(movie) {
