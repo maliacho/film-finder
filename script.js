@@ -18,7 +18,7 @@ let buttonClickHandler = function () {
 };
 // search for movie by name and display search list
 let findMovie = function (searchTerm){
-    let apiUrl = `http://www.omdbapi.com/?type=movie&apikey=${omdbApiKey}&s=${searchTerm}`;
+    let apiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&s=${searchTerm}`;
     fetch(apiUrl)
         .then(function (response) {
             return response.json();
@@ -32,7 +32,7 @@ let findMovie = function (searchTerm){
                 searchResultsContainer.className = 'search-result-item';
 
                 let titleEl = document.createElement('div');
-                titleEl.innerText = movies[i].Title + movies[i].Year;
+                titleEl.innerText = `${movies[i].Title} (${movies[i].Year})`;
 
                 let posterEl = document.createElement('img');
                 posterEl.src = movies[i].Poster;
