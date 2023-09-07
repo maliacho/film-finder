@@ -1,0 +1,17 @@
+#watch-list {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 25%;
+    overflow-y: auto; /* Add scroll if content overflows */
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    padding: 1rem;
+}
+
+/* Adjust the main content to account for the fixed watchlist */
+main {
+    margin-left: 25%; /* Match the width of the watchlist */
+    padding: 1rem;
+}
