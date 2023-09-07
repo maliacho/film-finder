@@ -24,24 +24,40 @@ let findMovie = function (searchTerm){
             return response.json();
         })
         .then(function(data){ // need to access search array in data
-            console.log(data)
-            const movies = data.Search;
-            for (let i=0; i < movies.length; i++) {
-                if (movies[i].Type === 'movie') {
-                let searchResultsContainer = document.createElement('div');
-                searchResultsContainer.className = 'search-result-item';
+            if (data.Response === 'True') {
+                // clear error message if movies found
+                errorMessageEl.textContent = '';
+                console.log(data);
+                searchList.innerHTML = ''; // clear previous search results
+                const movies = data.Search;
+                for (let i = 0; i < movies.length; i++) {
+                    if (movies[i].Type === 'movie') {
+                        let searchResultsContainer = document.createElement('div');
+                        searchResultsContainer.className = 'search-result-item';
 
-                let titleEl = document.createElement('div');
-                titleEl.innerText = movies[i].Title + movies[i].Year;
+                        let titleEl = document.createElement('div');
+                        titleEl.innerText = movies[i].Title + movies[i].Year;
 
-                let posterEl = document.createElement('img');
-                posterEl.src = movies[i].Poster;
+                        let posterEl = document.createElement('img');
+                        posterEl.src = movies[i].Poster;
 
-                searchResultsContainer.appendChild(titleEl);
-                searchResultsContainer.appendChild(posterEl);
-                searchList.appendChild(searchResultsContainer);
-            }}
+                        searchResultsContainer.appendChild(titleEl);
+                        searchResultsContainer.appendChild(posterEl);
+                        searchList.appendChild(searchResultsContainer);
+                    }
+                }
+            } else {
+                // movie not found error message
+                errorMessageEl.textContent = 'Movie not found.';
+                // clear previous search results
+                searchList.innerHTML = '';
+            }
         })
+        .catch(function (error) {
+            // network error message
+            errorMessageEl.textContent = 'An error occurred while fetching data.';
+            console.error(error);
+        });
 };
 
 
