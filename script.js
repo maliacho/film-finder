@@ -19,8 +19,8 @@ let buttonClickHandler = function () {
 };
 // search for movie by name and display search list
 let findMovie = function (searchTerm){
-    let apiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&s=${searchTerm}`;
-    fetch(apiUrl)
+    let searchApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&s=${searchTerm}`;
+    fetch(searchApiUrl)
         .then(function (response) {
             return response.json();
         })
@@ -36,13 +36,8 @@ let findMovie = function (searchTerm){
                         let searchResultsContainer = document.createElement('div');
                         searchResultsContainer.className = 'search-result-item';
 
-<<<<<<< HEAD
-                let titleEl = document.createElement('div');
-                titleEl.innerText = `${movies[i].Title} (${movies[i].Year})`;
-=======
                         let titleEl = document.createElement('div');
-                        titleEl.innerText = movies[i].Title + movies[i].Year;
->>>>>>> 139e81e4768c00148f76e13d04a6de801b1919a9
+                        titleEl.innerText = `${movies[i].Title} (${movies[i].Year})`;
 
                         let posterEl = document.createElement('img');
                         posterEl.src = movies[i].Poster;
@@ -50,8 +45,16 @@ let findMovie = function (searchTerm){
                         searchResultsContainer.appendChild(titleEl);
                         searchResultsContainer.appendChild(posterEl);
                         searchList.appendChild(searchResultsContainer);
-                    }
+                    };
+                    fetch(`http://www.omdbapi.com/?&apikey=${omdbApiKey}&i=${movies[i].imdbID}`) 
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function(data){
+                    console.log(data)    
+                    }) 
                 }
+                
             } else {
                 // movie not found error message
                 errorMessageEl.textContent = 'Movie not found.';
@@ -66,6 +69,8 @@ let findMovie = function (searchTerm){
         });
 };
 
+// let movieApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&i=${imdbID}`
+// fetch(movieApiUrl)
 
 // add movie to watchlist function
 function addToWatchlist(movie) {
