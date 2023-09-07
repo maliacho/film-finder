@@ -4,6 +4,7 @@ const searchInputEl = document.querySelector('#search-input');
 const watchListButtonEl = document.querySelector('#open-watch-list');
 const watchListItemsEl = document.querySelector('#watch-list-items');
 const searchList = document.querySelector('#search-list');
+const errorMessageEl = document.querySelector('#error-message');
 //array for storing movies into watchlist
 let watchlist = [];
 let movies = [];
