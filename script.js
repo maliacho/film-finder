@@ -18,21 +18,23 @@ let buttonClickHandler = function () {
         searchInputEl.value = ''; // clear search field
     }
 };
-// search for movie by name and display search list
+// Search for a movie by name and display results
 let findMovie = function (searchTerm) {
     let searchApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&s=${searchTerm}`;
     fetch(searchApiUrl)
         .then(function (response) {
             return response.json();
         })
-        .then(function (data) { // need to access search array in data
+        .then(function (data) {
             if (data.Response === 'True') {
                 // clear error message if movies found
                 errorMessageEl.textContent = '';
                 console.log(data);
-                searchList.innerHTML = ''; // clear previous search results
+                // clear previous search results
+                searchList.innerHTML = ''; 
                 const movies = data.Search;
                 for (let i = 0; i < movies.length; i++) {
+                    // Only show movie results
                     if (movies[i].Type === 'movie') {
                         let imdbIDApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&i=${movies[i].imdbID}`
                         fetch(imdbIDApiUrl)
@@ -54,7 +56,11 @@ let findMovie = function (searchTerm) {
                                 let plotEl = document.createElement('p');
                                 plotEl.textContent = movie.Plot;
                                 let ratingsEl = document.createElement('p');
+                                if (movie.Ratings[1].Source !== undefined && movie.Ratings[1].Value !== undefined) {
                                 ratingsEl.textContent = `IMdb: ${movie.Ratings[0].Value} ${movie.Ratings[1].Source}: ${movie.Ratings[1].Value}`;
+                                } else {
+                                    ratingsEl.textContent = `IMdb: ${movie.Ratings[0].Value}`
+                                }
                                 searchResultsContainer.appendChild(posterEl);
                                 searchResultsContainer.appendChild(titleEl);
                                 searchResultsContainer.appendChild(runtimeEl)
