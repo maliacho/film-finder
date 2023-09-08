@@ -20,8 +20,8 @@ let buttonClickHandler = function () {
 };
 // search for movie by name and display search list
 let findMovie = function (searchTerm) {
-    let apiUrl = `http://www.omdbapi.com/?type=movie&apikey=${omdbApiKey}&s=${searchTerm}`;
-    fetch(apiUrl)
+    let searchApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&s=${searchTerm}`;
+    fetch(searchApiUrl)
         .then(function (response) {
             return response.json();
         })
@@ -34,19 +34,35 @@ let findMovie = function (searchTerm) {
                 const movies = data.Search;
                 for (let i = 0; i < movies.length; i++) {
                     if (movies[i].Type === 'movie') {
-                        let searchResultsContainer = document.createElement('div');
-                        searchResultsContainer.className = 'search-result-item';
-
-                        let titleEl = document.createElement('div');
-                        titleEl.innerText = movies[i].Title + movies[i].Year;
-
-                        let posterEl = document.createElement('img');
-                        posterEl.src = movies[i].Poster;
-
-                        searchResultsContainer.appendChild(titleEl);
-                        searchResultsContainer.appendChild(posterEl);
-                        searchList.appendChild(searchResultsContainer);
-                    }
+                        let imdbIDApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&i=${movies[i].imdbID}`
+                        fetch(imdbIDApiUrl)
+                            .then(function (response) {
+                                return response.json();
+                            })
+                            .then(function (data) {
+                                console.log(data);
+                                let movie = data;
+                                let searchResultsContainer = document.createElement('div');
+                                searchResultsContainer.className = 'search-result-item';
+                                searchResultsContainer.setAttribute('id', `${movie.imdbID}`)
+                                let titleEl = document.createElement('h2');
+                                titleEl.textContent = `${movie.Title} (${movie.Year}) ${movie.Rated}`;
+                                let posterEl = document.createElement('img');
+                                posterEl.src = movie.Poster;
+                                let runtimeEl = document.createElement('p');
+                                runtimeEl.textContent = movie.Runtime;
+                                let plotEl = document.createElement('p');
+                                plotEl.textContent = movie.Plot;
+                                let ratingsEl = document.createElement('p');
+                                ratingsEl.textContent = `IMdb: ${movie.Ratings[0].Value} ${movie.Ratings[1].Source}: ${movie.Ratings[1].Value}`;
+                                searchResultsContainer.appendChild(posterEl);
+                                searchResultsContainer.appendChild(titleEl);
+                                searchResultsContainer.appendChild(runtimeEl)
+                                searchResultsContainer.appendChild(ratingsEl);
+                                searchResultsContainer.appendChild(plotEl);
+                                searchList.appendChild(searchResultsContainer);
+                            })
+                    };
                 }
             } else {
                 // movie not found error message
@@ -61,8 +77,6 @@ let findMovie = function (searchTerm) {
             console.error(error);
         });
 };
-
-
 
 // add movie to watchlist function
 function addToWatchlist(movie) {
@@ -96,24 +110,6 @@ function renderWatchlist() {
 watchListButtonEl.addEventListener('click', renderWatchlist);
 searchButtonEl.addEventListener('click', buttonClickHandler);
 
-
-function playTrailer(movie) {
-    // Links YouTube API and fetches data 
-    let youTubeApi = `https://www.googleapis.com/youtube/v3key=${youTubeApiKey}`;
-    fetch(youTubeApi)
-        .then(function (response) {
-            response.json().then(function (data) {
-                movieInfo(data);
-            })
-                .then(function (data) {
-                    if (data.response === searchTerm) {
-
-                    }
-                })
-        });
-    // embed movie trailer
-    <iframe width="560" height="315" src='https://www.youtube.com/embed/${videoID}' title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>;
-};
 
 // event listener for pressing Enter to search
 searchInputEl.addEventListener("keydown", (event) => {
