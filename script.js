@@ -20,12 +20,12 @@ let buttonClickHandler = function () {
 };
 // search for movie by name and display search list
 let findMovie = function (searchTerm) {
-    let apiUrl = `http://www.omdbapi.com/?type=movie&apikey=${omdbApiKey}&s=${searchTerm}`;
-    fetch(apiUrl)
+    let searchApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&s=${searchTerm}`;
+    fetch(searchApiUrl)
         .then(function (response) {
             return response.json();
         })
-        .then(function(data){ // need to access search array in data
+        .then(function (data) { // need to access search array in data
             if (data.Response === 'True') {
                 // clear error message if movies found
                 errorMessageEl.textContent = '';
@@ -34,19 +34,35 @@ let findMovie = function (searchTerm) {
                 const movies = data.Search;
                 for (let i = 0; i < movies.length; i++) {
                     if (movies[i].Type === 'movie') {
-                        let searchResultsContainer = document.createElement('div');
-                        searchResultsContainer.className = 'search-result-item';
-
-                        let titleEl = document.createElement('div');
-                        titleEl.innerText = movies[i].Title + movies[i].Year;
-
-                        let posterEl = document.createElement('img');
-                        posterEl.src = movies[i].Poster;
-
-                        searchResultsContainer.appendChild(titleEl);
-                        searchResultsContainer.appendChild(posterEl);
-                        searchList.appendChild(searchResultsContainer);
-                    }
+                        let imdbIDApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&i=${movies[i].imdbID}`
+                        fetch(imdbIDApiUrl)
+                            .then(function (response) {
+                                return response.json();
+                            })
+                            .then(function (data) {
+                                console.log(data);
+                                let movie = data;
+                                let searchResultsContainer = document.createElement('div');
+                                searchResultsContainer.className = 'search-result-item';
+                                searchResultsContainer.setAttribute('id', `${movie.imdbID}`)
+                                let titleEl = document.createElement('h2');
+                                titleEl.textContent = `${movie.Title} (${movie.Year}) ${movie.Rated}`;
+                                let posterEl = document.createElement('img');
+                                posterEl.src = movie.Poster;
+                                let runtimeEl = document.createElement('p');
+                                runtimeEl.textContent = movie.Runtime;
+                                let plotEl = document.createElement('p');
+                                plotEl.textContent = movie.Plot;
+                                let ratingsEl = document.createElement('p');
+                                ratingsEl.textContent = `IMdb: ${movie.Ratings[0].Value} ${movie.Ratings[1].Source}: ${movie.Ratings[1].Value}`;
+                                searchResultsContainer.appendChild(posterEl);
+                                searchResultsContainer.appendChild(titleEl);
+                                searchResultsContainer.appendChild(runtimeEl)
+                                searchResultsContainer.appendChild(ratingsEl);
+                                searchResultsContainer.appendChild(plotEl);
+                                searchList.appendChild(searchResultsContainer);
+                            })
+                    };
                 }
             } else {
                 // movie not found error message
@@ -61,9 +77,6 @@ let findMovie = function (searchTerm) {
             console.error(error);
         });
 };
-
-
-
 
 // add movie to watchlist function
 function addToWatchlist(movie) {
@@ -98,75 +111,50 @@ watchListButtonEl.addEventListener('click', renderWatchlist);
 searchButtonEl.addEventListener('click', buttonClickHandler);
 
 
-function movieInfo(imdbID) {
-    let moreInfo = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&i=${imdbID}` // @TODO need to figure out how to isolate imdb key
+// function movieInfo(imdbID) {
+//     let moreInfo = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&i=${imdbID}` // @TODO need to figure out how to isolate imdb key
 
-    // fetches data from imdb ID
-    fetch(moreInfo)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function(data) {
-            const info = data.movie
+//     // fetches data from imdb ID
+//     fetch(moreInfo)
+//         .then(function (response) {
+//             return response.json();
+//         })
+//         .then(function(data) {
+//             const info = data.movie
 
-            // creates an unordered list to store the data 
-            let movieInfoResults = document.createElement('ul');
+//             // creates an unordered list to store the data 
+//             let movieInfoResults = document.createElement('ul');
 
-            // adds values to ul 
-            let ratingEl = document.createElement('li');
-            ratingEl.textContent = info[i].Rated;
+//             // adds values to ul 
+//             let ratingEl = document.createElement('li');
+//             ratingEl.textContent = info[i].Rated;
 
-            let plotEl = document.createElement('li');
-            plotEl.textContent = info[i].Plot;
+//             let plotEl = document.createElement('li');
+//             plotEl.textContent = info[i].Plot;
 
-            let criticsEl = document.createElement('li');
-            criticsEl.textContent = info[i].Ratings
+//             let criticsEl = document.createElement('li');
+//             criticsEl.textContent = info[i].Ratings
 
-            movieInfoResults.appendChild(ratingEl);
-            movieInfoResults.appendChild(plotEl);
-            movieInfoResults.appendChild(criticsEl);       
-        });
-};
+//             movieInfoResults.appendChild(ratingEl);
+//             movieInfoResults.appendChild(plotEl);
+//             movieInfoResults.appendChild(criticsEl);       
+//         });
+// };
 
-function playTrailer(imdbID) {
-    // Use YouTube API to search for the trailer
-    const youtubeApiUrl = `https://www.googleapis.com/youtube/v3/search?key=${youTubeApiKey}&q=${imdbID} official trailer`;
-    
-    fetch(youtubeApiUrl)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            if (data.items.length > 0) {
-                // Get the video ID of the first result
-                const videoId = data.items[0].id.videoId;
+// function playTrailer(movie) {
+//     // Links YouTube API and fetches data 
+//     let youTubeApi = `https://www.googleapis.com/youtube/v3key=${youTubeApiKey}`;
+//     fetch(youTubeApi)
+//         .then(function (response) {
+//             response.json().then(function (data) {
+//                 movieInfo(data);
+//             });
+//         });
+//     // embed movie trailer
+//     <iframe width="560" height="315" src='https://www.youtube.com/embed/${movieTrailer}' title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>;
 
-                // Construct the YouTube embed URL
-                const youtubeEmbedUrl = `https://www.youtube.com/embed/${videoId}`;
+// };
 
-                // Create an iframe to embed the trailer
-                const iframe = document.createElement('iframe');
-                iframe.width = '560';
-                iframe.height = '315';
-                iframe.src = youtubeEmbedUrl;
-                iframe.title = 'YouTube video player';
-                iframe.frameborder = '0';
-                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-                iframe.allowFullscreen = true;
-
-                // Append the iframe to a container div or directly to the DOM
-                // Replace 'containerId' with the ID of the container where you want to display the trailer
-                const container = document.getElementById('containerId');
-                container.innerHTML = '';
-                container.appendChild(iframe);
-            } else {
-                console.log('Trailer not found.');
-            }
-        })
-        .catch(function (error) {
-            console.error('An error occurred while fetching YouTube data:', error);
-        });
-}
 // event listener for pressing Enter to search
 searchInputEl.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
