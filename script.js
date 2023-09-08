@@ -25,12 +25,11 @@ let findMovie = function (searchTerm) {
         .then(function (response) {
             return response.json();
         })
-        .then(function (data) { // need to access search array in data
+        .then(function (data) {
             if (data.Response === 'True') {
-                // clear error message if movies found
                 errorMessageEl.textContent = '';
                 console.log(data);
-                searchList.innerHTML = ''; // clear previous search results
+                searchList.innerHTML = '';
                 const movies = data.Search;
                 for (let i = 0; i < movies.length; i++) {
                     if (movies[i].Type === 'movie') {
@@ -54,29 +53,62 @@ let findMovie = function (searchTerm) {
                                 let plotEl = document.createElement('p');
                                 plotEl.textContent = movie.Plot;
                                 let ratingsEl = document.createElement('p');
-                                ratingsEl.textContent = `IMdb: ${movie.Ratings[0].Value} ${movie.Ratings[1].Source}: ${movie.Ratings[1].Value}`;
+                                ratingsEl.textContent = `IMDb: ${movie.Ratings[0].Value} ${movie.Ratings[1].Source}: ${movie.Ratings[1].Value}`;
+                                
+                                // Create a link to the movie trailer
+                                let trailerLinkEl = document.createElement('a');
+                                trailerLinkEl.href = ''; // Replace with the actual trailer URL
+                                trailerLinkEl.textContent = 'Watch Trailer';
+                                trailerLinkEl.target = '_blank'; // Open in a new tab
+
                                 searchResultsContainer.appendChild(posterEl);
                                 searchResultsContainer.appendChild(titleEl);
                                 searchResultsContainer.appendChild(runtimeEl)
                                 searchResultsContainer.appendChild(ratingsEl);
                                 searchResultsContainer.appendChild(plotEl);
+                                searchResultsContainer.appendChild(trailerLinkEl); // Append the trailer link
                                 searchList.appendChild(searchResultsContainer);
+                                
+                                // Fetch the trailer URL and set it in the trailer link's href
+                                fetchTrailerUrl(movie.Title, trailerLinkEl);
                             })
                     };
                 }
             } else {
-                // movie not found error message
                 errorMessageEl.textContent = 'Movie not found.';
-                // clear previous search results
                 searchList.innerHTML = '';
             }
         })
         .catch(function (error) {
-            // network error message
             errorMessageEl.textContent = 'An error occurred while fetching data.';
             console.error(error);
         });
 };
+
+// Function to fetch the trailer URL using the YouTube API
+function fetchTrailerUrl(movieTitle, trailerLinkEl) {
+    const youtubeApiUrl = `https://www.googleapis.com/youtube/v3/search?key=${youTubeApiKey}&q=${movieTitle} official trailer`;
+
+    fetch(youtubeApiUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            if (data.items.length > 0) {
+                const videoId = data.items[0].id.videoId;
+                const youtubeVideoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+                
+                // Set the trailer link's href to the YouTube video URL
+                trailerLinkEl.href = youtubeVideoUrl;
+            } else {
+                console.log('Trailer not found.');
+            }
+        })
+        .catch(function (error) {
+            console.error('An error occurred while fetching YouTube data:', error);
+        });
+}
+
 
 // add movie to watchlist function
 function addToWatchlist(movie) {
