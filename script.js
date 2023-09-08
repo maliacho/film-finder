@@ -1,4 +1,5 @@
 const omdbApiKey = 'a9f162e7'
+const youTubeApiKey = 'AIzaSyB7CGQ509hnLe0aZfKS4b5cV4M8UFF5Du8';
 const searchButtonEl = document.querySelector('#search-button');
 const searchInputEl = document.querySelector('#search-input');
 const watchListButtonEl = document.querySelector('#open-watch-list');
@@ -24,27 +25,6 @@ let findMovie = function (searchTerm) {
         .then(function (response) {
             return response.json();
         })
-<<<<<<< HEAD
-        .then(function (data) { // need to access search array in data
-            console.log(data)
-            const movies = data.Search;
-            for (let i = 0; i < movies.length; i++) {
-                 
-                if (movies[i].Type === 'movie') {
-                    let searchResultsContainer = document.createElement('div');
-                    searchResultsContainer.className = 'search-result-item';
-
-                    let titleEl = document.createElement('div');
-                    titleEl.innerText = movies[i].Title + movies[i].Year;
-
-                    let posterEl = document.createElement('img');
-                    posterEl.src = movies[i].Poster;
-
-                    searchResultsContainer.appendChild(titleEl);
-                    searchResultsContainer.appendChild(posterEl);
-                    searchList.appendChild(searchResultsContainer);
-                }
-=======
         .then(function(data){ // need to access search array in data
             if (data.Response === 'True') {
                 // clear error message if movies found
@@ -73,7 +53,6 @@ let findMovie = function (searchTerm) {
                 errorMessageEl.textContent = 'Movie not found.';
                 // clear previous search results
                 searchList.innerHTML = '';
->>>>>>> c135b5b2747241b8bf2f97d0e4238323cee591cd
             }
         })
         .catch(function (error) {
@@ -148,60 +127,25 @@ function movieInfo(imdbID) {
             movieInfoResults.appendChild(criticsEl);       
         });
 };
-// function movieInfo(movie) {
-
-// creates a div in HTML to display movie information
-// let resultInfo = document.createElement('div');
-// resultInfo.classList.add(); // @TODO CSS parameters needed for styling
-
-// creates a heading for the result info 'Rating'
-// let ratingEl = document.createElement('h3');
-// ratingEl.textContent = ('Rating');
-
-//creates a p tag for the movie rating
-// let movieRating = document.createElement('p');
-// movieRating.textContent = movie.rated;
-
-// creates a heading for the result info 'Rotten Tomatoes Score'
-// let scoreEl = document.createElement('h3');
-// scoreEl.textContent = ('Rotten Tomatoes Score');
-
-// creates a p tag for the Rotten Tomatoes Score
-//     let tomatoScore = document.createElement('p');
-//     tomatoScore.textContent = movie.rotten - tomatoes;
-
-// };
-
 
 function playTrailer(movie) {
     // Links YouTube API and fetches data 
-    let youTubeApi = 'https://www.youtube.com/iframe_api' + movie;
+    let youTubeApi = `https://www.googleapis.com/youtube/v3key=${youTubeApiKey}`;
     fetch(youTubeApi)
         .then(function (response) {
             response.json().then(function (data) {
                 movieInfo(data);
             });
         });
-
-    // creates a link to the movie trailer
-    let trailerEl = document.createElement('a')
-    trailerEl.setAttribute('href', 'https://youtube.com/' + movie + '/trailer');
-    trailerEl.setAttribute('target', '_blank');
+    // embed movie trailer
+    <iframe width="560" height="315" src='https://www.youtube.com/embed/${movieTrailer}' title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>;
 
 };
 
-<<<<<<< HEAD
-=======
 // event listener for pressing Enter to search
 searchInputEl.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
             searchButtonEl.click();
         }
     });
-
-// function redirectUser() {
-
-// }
->>>>>>> c135b5b2747241b8bf2f97d0e4238323cee591cd
-
 
