@@ -6,6 +6,7 @@ const watchListButtonEl = document.querySelector('#open-watch-list');
 const watchListItemsEl = document.querySelector('#watch-list-items');
 const searchList = document.querySelector('#search-list');
 const errorMessageEl = document.querySelector('#error-message');
+const ourPicks = document.querySelector('#suggested-movies')
 //array for storing movies into watchlist
 let watchlist = [];
 let movies = [];
@@ -18,6 +19,7 @@ let buttonClickHandler = function () {
         searchInputEl.value = ''; // clear search field
     }
 };
+
 // search for movie by name and display search list
 let findMovie = function (searchTerm) {
     let searchApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&s=${searchTerm}`;
@@ -149,6 +151,21 @@ searchInputEl.addEventListener("keydown", (event) => {
         searchButtonEl.click();
     }
 });
+
+ourPicks.addEventListener('click', developerFavs);
+
+function developerFavs() {
+
+    let malia = {
+        titleEl : 'Pitch Perfect',
+        imdbID : 'tt1981677',
+    }
+
+    findMovie(malia.titleEl, malia.imdbID);
+};   
+    
+    
+
 
 
 
