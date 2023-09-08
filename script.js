@@ -1,4 +1,5 @@
 const omdbApiKey = 'a9f162e7'
+const youTubeApiKey = 'AIzaSyB7CGQ509hnLe0aZfKS4b5cV4M8UFF5Du8';
 const searchButtonEl = document.querySelector('#search-button');
 const searchInputEl = document.querySelector('#search-input');
 const watchListButtonEl = document.querySelector('#open-watch-list');
@@ -11,16 +12,22 @@ let movies = [];
 
 // search on button click (add option for enterkey?)
 let buttonClickHandler = function () {
-    let searchTerm = searchInputEl.value.trim(); 
+    let searchTerm = searchInputEl.value.trim();
     if (searchTerm) {
         findMovie(searchTerm);
         searchInputEl.value = ''; // clear search field
     }
 };
 // search for movie by name and display search list
+<<<<<<< HEAD
 let findMovie = function (searchTerm){
     let searchApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&s=${searchTerm}`;
     fetch(searchApiUrl)
+=======
+let findMovie = function (searchTerm) {
+    let apiUrl = `http://www.omdbapi.com/?type=movie&apikey=${omdbApiKey}&s=${searchTerm}`;
+    fetch(apiUrl)
+>>>>>>> 36dd64889a7ecb5228d25f55be39cbd8d9582149
         .then(function (response) {
             return response.json();
         })
@@ -72,6 +79,8 @@ let findMovie = function (searchTerm){
 // let movieApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&i=${imdbID}`
 // fetch(movieApiUrl)
 
+
+
 // add movie to watchlist function
 function addToWatchlist(movie) {
     // if movie is still in the watchlist
@@ -104,45 +113,48 @@ function renderWatchlist() {
 watchListButtonEl.addEventListener('click', renderWatchlist);
 searchButtonEl.addEventListener('click', buttonClickHandler);
 
-function movieInfo(movie) {
 
-    // creates a div in HTML to display movie information
-    let resultInfo = document.createElement('div');
-    resultInfo.classList.add(); // @TODO CSS parameters needed for styling
+function movieInfo(imdbID) {
+    let moreInfo = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&i=${imdbID}` // @TODO need to figure out how to isolate imdb key
 
-    // creates a heading for the result info 'Rating'
-    let ratingEl = document.createElement('h3');
-    ratingEl.textContent = ('Rating');
+    // fetches data from imdb ID
+    fetch(moreInfo)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function(data) {
+            const info = data.movie
 
-    //creates a p tag for the movie rating
-    let movieRating = document.createElement('p');
-    movieRating.textContent = movie.rated;
+            // creates an unordered list to store the data 
+            let movieInfoResults = document.createElement('ul');
 
-    // creates a heading for the result info 'Rotten Tomatoes Score'
-    let scoreEl = document.createElement('h3');
-    scoreEl.textContent = ('Rotten Tomatoes Score');
+            // adds values to ul 
+            let ratingEl = document.createElement('li');
+            ratingEl.textContent = info[i].Rated;
 
-    // creates a p tag for the Rotten Tomatoes Score
-    let tomatoScore = document.createElement('p');
-    tomatoScore.textContent = movie.rotten - tomatoes;
+            let plotEl = document.createElement('li');
+            plotEl.textContent = info[i].Plot;
 
+            let criticsEl = document.createElement('li');
+            criticsEl.textContent = info[i].Ratings
+
+            movieInfoResults.appendChild(ratingEl);
+            movieInfoResults.appendChild(plotEl);
+            movieInfoResults.appendChild(criticsEl);       
+        });
 };
-
 
 function playTrailer(movie) {
     // Links YouTube API and fetches data 
-    let youTubeApi = 'https://www.youtube.com/iframe_api' + movie;
+    let youTubeApi = `https://www.googleapis.com/youtube/v3key=${youTubeApiKey}`;
     fetch(youTubeApi)
-        .then(function(response) {
-            response.json().then(function(data){
+        .then(function (response) {
+            response.json().then(function (data) {
                 movieInfo(data);
             });
         });
-
-    // creates a link to the movie trailer
-    let trailerEl = document.createElement('a')
-    trailerEl.setAttribute('href', 'https://youtube.com/' + movie + '/trailer');
-    trailerEl.setAttribute('target', '_blank');
+    // embed movie trailer
+    <iframe width="560" height="315" src='https://www.youtube.com/embed/${movieTrailer}' title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>;
 
 };
 
@@ -152,9 +164,4 @@ searchInputEl.addEventListener("keydown", (event) => {
             searchButtonEl.click();
         }
     });
-
-// function redirectUser() {
-
-// }
-
 
