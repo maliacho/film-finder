@@ -128,20 +128,45 @@ function movieInfo(imdbID) {
         });
 };
 
-function playTrailer(movie) {
-    // Links YouTube API and fetches data 
-    let youTubeApi = `https://www.googleapis.com/youtube/v3key=${youTubeApiKey}`;
-    fetch(youTubeApi)
+function playTrailer(imdbID) {
+    // Use YouTube API to search for the trailer
+    const youtubeApiUrl = `https://www.googleapis.com/youtube/v3/search?key=${youTubeApiKey}&q=${imdbID} official trailer`;
+    
+    fetch(youtubeApiUrl)
         .then(function (response) {
-            response.json().then(function (data) {
-                movieInfo(data);
-            });
+            return response.json();
+        })
+        .then(function (data) {
+            if (data.items.length > 0) {
+                // Get the video ID of the first result
+                const videoId = data.items[0].id.videoId;
+
+                // Construct the YouTube embed URL
+                const youtubeEmbedUrl = `https://www.youtube.com/embed/${videoId}`;
+
+                // Create an iframe to embed the trailer
+                const iframe = document.createElement('iframe');
+                iframe.width = '560';
+                iframe.height = '315';
+                iframe.src = youtubeEmbedUrl;
+                iframe.title = 'YouTube video player';
+                iframe.frameborder = '0';
+                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+                iframe.allowFullscreen = true;
+
+                // Append the iframe to a container div or directly to the DOM
+                // Replace 'containerId' with the ID of the container where you want to display the trailer
+                const container = document.getElementById('containerId');
+                container.innerHTML = '';
+                container.appendChild(iframe);
+            } else {
+                console.log('Trailer not found.');
+            }
+        })
+        .catch(function (error) {
+            console.error('An error occurred while fetching YouTube data:', error);
         });
-    // embed movie trailer
-    <iframe width="560" height="315" src='https://www.youtube.com/embed/${movieTrailer}' title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>;
-
-};
-
+}
 // event listener for pressing Enter to search
 searchInputEl.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
