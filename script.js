@@ -6,7 +6,7 @@ const watchListButtonEl = document.querySelector('#open-watch-list');
 const watchListItemsEl = document.querySelector('#watch-list-items');
 const searchList = document.querySelector('#search-list');
 const errorMessageEl = document.querySelector('#error-message');
-const ourPicks = document.querySelector('#suggested-movies')
+const ourPicks = document.querySelector('#suggested-movies');
 //array for storing movies into watchlist
 let watchlist = [];
 let movies = [];
@@ -62,13 +62,20 @@ let findMovie = function (searchTerm) {
                                 trailerLinkEl.href = ''; // Replace with the actual trailer URL
                                 trailerLinkEl.textContent = 'Watch Trailer';
                                 trailerLinkEl.target = '_blank'; // Open in a new tab
-
+                                
+                                let addToWatchlistButton = document.createElement('button');
+                                addToWatchlistButton.textContent = 'Add to Watchlist';
+                                addToWatchlistButton.addEventListener('click', function () {
+                                addToWatchlist(movie);
+                                });
+                                
                                 searchResultsContainer.appendChild(posterEl);
                                 searchResultsContainer.appendChild(titleEl);
                                 searchResultsContainer.appendChild(runtimeEl)
                                 searchResultsContainer.appendChild(ratingsEl);
                                 searchResultsContainer.appendChild(plotEl);
                                 searchResultsContainer.appendChild(trailerLinkEl); // Append the trailer link
+                                searchResultsContainer.appendChild(addToWatchlistButton);
                                 searchList.appendChild(searchResultsContainer);
                                 
                                 // Fetch the trailer URL and set it in the trailer link's href
@@ -86,6 +93,27 @@ let findMovie = function (searchTerm) {
             console.error(error);
         });
 };
+
+// Render watchlist
+function renderWatchlist() {
+    // Clear watchlist
+    watchListItemsEl.innerHTML = '';
+
+    // Loop through watchlist and display movies with poster and runtime
+    watchlist.forEach((movie) => {
+        const listItem = document.createElement('div');
+        listItem.className = 'watchlist-movie';
+        listItem.innerHTML = `
+            <img src="${movie.Poster}" alt="${movie.Title} Poster">
+            <div class="watchlist-details">
+                <p>${movie.Title} (${movie.Year}) ${movie.Rated}</p>
+                <p>Runtime: ${movie.Runtime}</p>
+            </div>
+            <button class='remove-button' onclick='removeFromWatchlist("${movie.Title}")'>Remove</button>
+        `;
+        watchListItemsEl.appendChild(listItem);
+    });
+}
 
 // Function to fetch the trailer URL using the YouTube API
 function fetchTrailerUrl(movieTitle, trailerLinkEl) {
@@ -114,41 +142,31 @@ function fetchTrailerUrl(movieTitle, trailerLinkEl) {
 
 // add movie to watchlist function
 function addToWatchlist(movie) {
+    console.log('Adding to watchlist:', movie.Title);
     // if movie is still in the watchlist
     if (!watchlist.some((item) => item.Title === movie.Title)) {
         watchlist.push(movie);
+        console.log('Movie added to watchlist:', movie.Title);
         renderWatchlist();
+
     }
 }
-// remove movie from watch list
+// Remove movie from watchlist
 function removeFromWatchlist(movieTitle) {
     watchlist = watchlist.filter((item) => item.Title !== movieTitle);
     renderWatchlist();
 }
-// render watchlist
-function renderWatchlist() {
-    // clear watchlist
-    watchListItemsEl.innerHTML = '';
 
-    // loop thru watchlist and display movies
-    watchlist.forEach((movie) => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `
-            ${movie.Title}
-            <button class='remove-button' onclick='removeFromWatchlist('${movie.Title}')'>Remove</button>
-        `;
-        watchListItemsEl.appendChild(listItem);
-    });
-}
+// Event listener for the "Open Watch List" button
+watchListButtonEl.addEventListener('click', function () {
+    watchListItemsEl.classList.toggle('hidden'); // Toggle the visibility of the watchlist
+    renderWatchlist();
+});
 
-watchListButtonEl.addEventListener('click', renderWatchlist);
-searchButtonEl.addEventListener('click', buttonClickHandler);
-
-
-// event listener for pressing Enter to search
+// Event listener for pressing Enter to search
 searchInputEl.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
-        searchButtonEl.click();
+        buttonClickHandler();
     }
 });
 
