@@ -5,20 +5,20 @@
     <title>FilmFinder</title>
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- additional css file (not needed right now) --
-    <link rel="stylesheet" type="text/css" href="./Assets/style.css"> -->
+    <!-- additional css file -->
+    <link rel="stylesheet" type="text/css" href="./Assets/style.css">
     <script defer src="script.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 
 <body>
-<div class="text-center py-4 mx-auto max-w-prose">
-    <header class="box-decoration-clone bg-gradient-to-r from-indigo-600 to-pink-500 text-white">
+<div class="text-center py-4 mx-auto max-w-screen-lg p-4">
+    <header>
         <h1>FilmFinder</h1>
     </header>
     <!-- playlist area -->
     <main>
-        <section id="watch-list" class="fixed top-0 left-0 bottom-0 w-1/5 overflow-y-auto p-4">
+        <section id="watch-list" class="top-left">
             <h2>My Watch List</h2>
             <!-- Toggleable to-do list -->
             <div id="watch-list-items" class="hidden">
@@ -63,9 +63,7 @@
         <!-- add more sections if needed -->
     </main>
 </div>
-
-
-<footer class="text-center py-4 mx-auto max-w-screen-lg p-4">
+<footer>
     <p>&copy; 2023 FilmFinder</p>
 </footer>
 

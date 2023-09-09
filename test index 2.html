@@ -18,28 +18,29 @@
     </header>
     <!-- playlist area -->
     <main>
+        <section id="watch-list" class="fixed top-0 left-0 bottom-0 w-1/5 overflow-y-auto p-4">
+            <h2>My Watch List</h2>
+            <!-- Toggleable to-do list -->
+            <div id="watch-list-items" class="hidden">
+                <ul id="to-do-list">
+                    <!-- To-do list items will be dynamically added here -->
+                </ul>
+            </div>
+            <!-- Message for empty watch list -->
+            <p id="empty-watch-list-message" class="hidden text-red-500">There is nothing in your watch list</p>
+            <!-- Watchlist items displayed here -->
+            <button id="open-watch-list" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Open Watch List
+            </button>
+        </section>
+
         <!-- search area -->
         <section class="mt-8 flex flex-col items-center" id="movie-search">
             <h2>Search for a Movie</h2>
             <div class="flex w-full">
                 <input type="text" id="search-input" class="w-full border rounded-l-lg py-2 px-4" placeholder="Enter movie name">
-                </div>
-
-                <div class="grid gap-0 grid-cols-2">
-                    <div>
-                        <button id="search-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-lg">Search</button>
-                    </div>
-                    <div>
-                        <button id="open-watch-list" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-lg ml-2">Watch List</button>
-                    </div>
-                
-            <!--
+                <button id="search-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-l-none rounded-r-lg">Search</button>
             </div>
-                <div class="flex">
-                    <button id="search-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-lg">Search</button>
-                    <button id="open-watch-list" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-lg ml-2">Watch List</button>
-                </div>
-            -->
             <!-- Centered search results -->
             <div id="search-results" class="mt-4 flex flex-col items-center">
                 <div id="search-list"></div>
@@ -70,4 +71,3 @@
 
 </body>
 </html>
-
