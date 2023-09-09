@@ -11,7 +11,7 @@ const ourPicks = document.querySelector('#suggested-movies')
 let watchlist = [];
 let movies = [];
 
-// search on button click (add option for enterkey?)
+// search on button click 
 let buttonClickHandler = function () {
     let searchTerm = searchInputEl.value.trim();
     if (searchTerm) {
@@ -19,12 +19,7 @@ let buttonClickHandler = function () {
         searchInputEl.value = ''; // clear search field
     }
 };
-<<<<<<< HEAD
 // Search for a movie by name and display results
-=======
-
-// search for movie by name and display search list
->>>>>>> 9238f290430cf2f4dbce4eec209577fe8797795e
 let findMovie = function (searchTerm) {
     let searchApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&s=${searchTerm}`;
     fetch(searchApiUrl)
