@@ -130,6 +130,8 @@ function fetchTrailerUrl(movieTitle, trailerLinkEl) {
                 
                 // Set the trailer link's href to the YouTube video URL
                 trailerLinkEl.href = youtubeVideoUrl;
+                trailerLinkEl.textContent = 'Watch Trailer'; // Update the link text
+                trailerLinkEl.target = '_blank'; // Open in a new tab..
             } else {
                 console.log('Trailer not found.');
             }
@@ -159,8 +161,16 @@ function removeFromWatchlist(movieTitle) {
 
 // Event listener for the "Open Watch List" button
 watchListButtonEl.addEventListener('click', function () {
-    watchListItemsEl.classList.toggle('hidden'); // Toggle the visibility of the watchlist
-    renderWatchlist();
+    if (watchListItemsEl.classList.contains('hidden')) {
+        watchListItemsEl.classList.remove('hidden'); // Show the watchlist
+        watchListButtonEl.textContent = 'Close Watch List';
+        watchListButtonEl.classList.add('bg-red-500', 'hover:bg-red-700'); // make the button red when clicked
+        renderWatchlist();
+    } else {
+        watchListItemsEl.classList.add('hidden'); // hide the watchlist
+        watchListButtonEl.textContent = 'Open Watch List';
+        watchListButtonEl.classList.remove('bg-red-500', 'hover:bg-red-700'); // removes red button
+    }
 });
 
 // Event listener for pressing Enter to search
