@@ -155,13 +155,12 @@ searchInputEl.addEventListener("keydown", (event) => {
 ourPicks.addEventListener('click', developerFavs);
 
 function developerFavs() {
-
+   
     let malia = {
         titleEl : 'Pitch Perfect',
         imdbID : 'tt1981677',
     }
 
-    findMovie(malia.titleEl, malia.imdbID);
 };   
     
     
