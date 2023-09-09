@@ -2,7 +2,7 @@
 
 ## Description
 
-Film Finder
+Film Finder is
 
 ## Technologies Used
 
