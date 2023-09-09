@@ -31,7 +31,7 @@ let findMovie = function (searchTerm) {
                 errorMessageEl.textContent = '';
                 console.log(data);
                 // clear previous search results
-                searchList.innerHTML = ''; 
+                searchList.innerHTML = '';
                 const movies = data.Search;
                 for (let i = 0; i < movies.length; i++) {
                     // Only show movie results
@@ -62,13 +62,13 @@ let findMovie = function (searchTerm) {
                                 trailerLinkEl.href = ''; // Replace with the actual trailer URL
                                 trailerLinkEl.textContent = 'Watch Trailer';
                                 trailerLinkEl.target = '_blank'; // Open in a new tab
-                                
+
                                 let addToWatchlistButton = document.createElement('button');
                                 addToWatchlistButton.textContent = 'Add to Watchlist';
                                 addToWatchlistButton.addEventListener('click', function () {
-                                addToWatchlist(movie);
+                                    addToWatchlist(movie);
                                 });
-                                
+
                                 searchResultsContainer.appendChild(posterEl);
                                 searchResultsContainer.appendChild(titleEl);
                                 searchResultsContainer.appendChild(runtimeEl)
@@ -77,7 +77,7 @@ let findMovie = function (searchTerm) {
                                 searchResultsContainer.appendChild(trailerLinkEl); // Append the trailer link
                                 searchResultsContainer.appendChild(addToWatchlistButton);
                                 searchList.appendChild(searchResultsContainer);
-                                
+
                                 // Fetch the trailer URL and set it in the trailer link's href
                                 fetchTrailerUrl(movie.Title, trailerLinkEl);
                             })
@@ -127,7 +127,7 @@ function fetchTrailerUrl(movieTitle, trailerLinkEl) {
             if (data.items.length > 0) {
                 const videoId = data.items[0].id.videoId;
                 const youtubeVideoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-                
+
                 // Set the trailer link's href to the YouTube video URL
                 trailerLinkEl.href = youtubeVideoUrl;
                 trailerLinkEl.textContent = 'Watch Trailer'; // Update the link text
@@ -181,18 +181,6 @@ searchInputEl.addEventListener("keydown", (event) => {
 });
 
 ourPicks.addEventListener('click', developerFavs);
-
-function developerFavs() {
-   
-    let malia = {
-        titleEl : 'Pitch Perfect',
-        imdbID : 'tt1981677',
-    }
-
-};   
-    
-    
-
-
+searchButtonEl.addEventListener('click', buttonClickHandler);
 
 
