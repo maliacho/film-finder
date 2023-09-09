@@ -19,6 +19,9 @@ let buttonClickHandler = function () {
         searchInputEl.value = ''; // clear search field
     }
 };
+
+searchButtonEl.addEventListener('click', buttonClickHandler);
+
 // Search for a movie by name and display results
 let findMovie = function (searchTerm) {
     let searchApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&s=${searchTerm}`;
@@ -150,7 +153,6 @@ function addToWatchlist(movie) {
         watchlist.push(movie);
         console.log('Movie added to watchlist:', movie.Title);
         renderWatchlist();
-
     }
 }
 // Remove movie from watchlist
@@ -180,7 +182,5 @@ searchInputEl.addEventListener("keydown", (event) => {
     }
 });
 
-ourPicks.addEventListener('click', developerFavs);
-searchButtonEl.addEventListener('click', buttonClickHandler);
 
 
