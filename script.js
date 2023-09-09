@@ -131,7 +131,7 @@ function fetchTrailerUrl(movieTitle, trailerLinkEl) {
                 // Set the trailer link's href to the YouTube video URL
                 trailerLinkEl.href = youtubeVideoUrl;
                 trailerLinkEl.textContent = 'Watch Trailer'; // Update the link text
-                trailerLinkEl.target = '_blank'; // Open in a new tab
+                trailerLinkEl.target = '_blank'; // Open in a new tab..
             } else {
                 console.log('Trailer not found.');
             }
