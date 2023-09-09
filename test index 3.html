@@ -9,7 +9,7 @@
     <!-- Flowbite components for Tailwind (CSS)-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet">
     <!-- Flowbite components for Tailwind (JavaScript) -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>   
     <!-- JavaScript -->
     <script defer src="script.js"></script>
     <!-- YouTube API -->
@@ -17,7 +17,6 @@
 </head>
 
 <body>
-    
     <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
         <span class="sr-only">Open sidebar</span>
         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -29,6 +28,7 @@
         <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
            <ul class="space-y-2 font-medium">
               <li>
+               <!-- My Watch List Section goes here -->
                  <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                        <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
@@ -54,8 +54,8 @@
      <div class="p-4 sm:ml-64">
       <div class="text-center py-4 mx-auto max-w-prose">
          <header class="box-decoration-clone bg-gradient-to-r from-indigo-600 to-pink-500 text-white">
-             <h1>FilmFinder</h1>
-         </header>
+            <h1>FilmFinder</h1>
+        </header>
          <!-- playlist area -->
          <main>
              <!-- search area -->
@@ -74,21 +74,22 @@
                  <div id="error-message" style="color: red;"></div>
              </section>
              <section id="suggested-movies" class="center">
-                 <h2>Suggested Movies</h2>
-                 <ul id="suggested-movie-items">
-                     <!-- suggested movies -->
-                     <li><a href="#">Suggested Movie 1</a></li>
-                     <li><a href="#">Suggested Movie 2</a></li>
-                     <li><a href="#">Suggested Movie 3</a></li>
-                     <li><a href="#">Suggested Movie 4</a></li>
+               <h2>Our Picks</h2>
+               <ul id="suggested-movie-items">
+                   <!-- suggested movies -->
+                   <li id="nathan"><a href="#">Nathan</a></li>
+                   <li id="moe"><a href="#">Moe</a></li>
+                   <li id="daniel"><a href="#">Daniel</a></li>
+                   <li id="malia"><a href="#">Malia</a></li>
                      <!-- can add more if needed -->
                  </ul>
              </section>
              <!-- add more sections if needed -->
          </main>
      </div>
-        
-     
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>     
+<footer class="mt-8 flex flex-col items-center">
+      <p>&copy; 2023 FilmFinder</p>
+</footer>
+
 </body>
 </html>

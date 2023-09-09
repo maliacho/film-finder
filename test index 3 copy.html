@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilmFinder</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Flowbite components for Tailwind (CSS)-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet">
+    <!-- JavaScript -->
+    <script defer src="script.js"></script>
+    <!-- Flowbite components for Tailwind (JavaScript) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>   
+    
+    <!-- YouTube API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+
+<body>
+    
+     <div class="p-4 sm:ml-64">
+      <div class="text-center py-4 mx-auto max-w-prose">
+         <header class="box-decoration-clone bg-gradient-to-r from-indigo-600 to-pink-500 text-white">
+            <h1>FilmFinder</h1>
+        </header>
+         <!-- playlist area -->
+         <main>
+           
+             <!-- search area -->
+             <section class="mt-8 flex flex-col items-center" id="movie-search">
+                 <h2>Search for a Movie</h2>
+                 <div class="flex w-full">
+                     <input type="text" id="search-input" class="w-full border rounded-l-lg py-2 px-4" placeholder="Enter movie name">
+                     <button id="search-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-l-none rounded-r-lg">Search</button>
+                 </div>
+                 <!-- Centered search results -->
+                 <div id="search-results" class="mt-4 flex flex-col items-center">
+                     <div id="search-list"></div>
+                     <!-- results -->
+                 </div>
+                 <!-- error message when movie not found -->
+                 <div id="error-message" style="color: red;"></div>
+             </section>
+             <section id="suggested-movies" class="center">
+               <h2>Our Picks</h2>
+               <ul id="suggested-movie-items">
+                   <!-- suggested movies -->
+                   <li id="nathan"><a href="#">Nathan</a></li>
+                   <li id="moe"><a href="#">Moe</a></li>
+                   <li id="daniel"><a href="#">Daniel</a></li>
+                   <li id="malia"><a href="#">Malia</a></li>
+                     <!-- can add more if needed -->
+                 </ul>
+             </section>
+             <!-- add more sections if needed -->
+         </main>
+     </div>
+<footer class="mt-8 flex flex-col items-center">
+      <p>&copy; 2023 FilmFinder</p>
+</footer>
+
+</body>
+</html>
