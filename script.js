@@ -29,12 +29,8 @@ let findMovie = function (searchTerm) {
             if (data.Response === 'True') {
                 errorMessageEl.textContent = '';
                 console.log(data);
-<<<<<<< HEAD
                 // clear previous search results
                 searchList.innerHTML = ''; 
-=======
-                searchList.innerHTML = '';
->>>>>>> 2d49d330ca452766877917c2962cbe89af50d1ec
                 const movies = data.Search;
                 for (let i = 0; i < movies.length; i++) {
                     // Only show movie results
@@ -59,22 +55,13 @@ let findMovie = function (searchTerm) {
                                 let plotEl = document.createElement('p');
                                 plotEl.textContent = movie.Plot;
                                 let ratingsEl = document.createElement('p');
-<<<<<<< HEAD
-                                if (movie.Ratings[1].Source !== undefined && movie.Ratings[1].Value !== undefined) {
-                                ratingsEl.textContent = `IMdb: ${movie.Ratings[0].Value} ${movie.Ratings[1].Source}: ${movie.Ratings[1].Value}`;
-                                } else {
-                                    ratingsEl.textContent = `IMdb: ${movie.Ratings[0].Value}`
-                                }
-=======
-                                ratingsEl.textContent = `IMDb: ${movie.Ratings[0].Value} ${movie.Ratings[1].Source}: ${movie.Ratings[1].Value}`;
-                                
+                                ratingsEl.textContent = `IMDb: ${movie.Ratings[0].Value}`;
                                 // Create a link to the movie trailer
                                 let trailerLinkEl = document.createElement('a');
                                 trailerLinkEl.href = ''; // Replace with the actual trailer URL
                                 trailerLinkEl.textContent = 'Watch Trailer';
                                 trailerLinkEl.target = '_blank'; // Open in a new tab
 
->>>>>>> 2d49d330ca452766877917c2962cbe89af50d1ec
                                 searchResultsContainer.appendChild(posterEl);
                                 searchResultsContainer.appendChild(titleEl);
                                 searchResultsContainer.appendChild(runtimeEl)
