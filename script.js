@@ -153,6 +153,7 @@ function addToWatchlist(movie) {
         watchlist.push(movie);
         console.log('Movie added to watchlist:', movie.Title);
         renderWatchlist();
+        localStorage.setItem('movie', movie)
     }
 }
 // Remove movie from watchlist
@@ -173,6 +174,8 @@ watchListButtonEl.addEventListener('click', function () {
         watchListButtonEl.textContent = 'Open Watch List';
         watchListButtonEl.classList.remove('bg-red-500', 'hover:bg-red-700'); // removes red button
     }
+    let watchlist = localStorage.getItem('movie');
+    console.log(watchlist);
 });
 
 // Event listener for pressing Enter to search
