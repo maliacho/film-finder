@@ -1,109 +1,187 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FilmFinder</title>
     <!-- Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- additional css file -->
-    <link rel="stylesheet" type="text/css" href="./Assets/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Flowbite components for Tailwind (CSS)-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
+    <!-- JavaScript -->
     <script defer src="script.js"></script>
+    <!-- YouTube API -->
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 
-<body>
-    <div class="text-center py-4 mx-auto max-w-screen-lg p-4">
-        <header>
-            <h1>FilmFinder</h1>
-        </header>
-        <!-- playlist area -->
-        <main>
-            <section id="watch-list" class="top-left">
-                <h2>My Watch List</h2>
-                <!-- Toggleable to-do list -->
-                <div id="watch-list-items" class="hidden">
-                    <ul id="to-do-list">
-                        <!-- To-do list items will be dynamically added here -->
-                    </ul>
+<body class="bg-gray-900">
+    <div class="antialiased bg-gray-50 dark:bg-gray-900">
+        <nav class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
+          <div class="flex flex-wrap justify-between items-center">
+            <div class="flex justify-start items-center">
+                <!-- burger button to open side bar -->
+                <button
+                data-drawer-target="drawer-navigation"
+                data-drawer-toggle="drawer-navigation"
+                aria-controls="drawer-navigation"
+                class="p-2 mr-2 text-gray-600 rounded-lg cursor-pointer md:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 dark:focus:bg-gray-700 focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <svg
+                  aria-hidden="true"
+                  class="hidden w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="sr-only">Toggle sidebar</span>
+              </button>
+              <!-- FilmFinder logo, title, and github.io link -->
+              <a href="https://maliacho.github.io/film-finder" class="flex items-center justify-between mr-4">
+                <img
+                  src="Assets/FilmFinder logo.png"
+                  class="mr-3 h-8"
+                  alt="FilmFinder Logo"
+                />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">FilmFinder</span>
+              </a>
+            </div>
+            <div class="flex items-center lg:order-2">
+              <button
+                type="button"
+                data-drawer-toggle="drawer-navigation"
+                aria-controls="drawer-navigation"
+                class="p-2 mr-1 text-gray-500 rounded-lg md:hidden hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+              >
+                <span class="sr-only">Toggle search</span>
+                <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path clip-rule="evenodd" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"></path>
+                </svg>
+              </button>
+              </div>
+            </div>
+          </div>
+        </nav>
+    
+        <!-- Sidebar -->
+    
+        <aside
+          class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+          aria-label="Sidenav"
+          id="drawer-navigation"
+        >
+          <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
+            <!-- side bar search bar -->
+            <form action="#" method="GET">
+              <label for="search-input" class="sr-only">Search</label>
+              <div class="relative">
+                <div
+                  class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
+                >
+                  <svg
+                    class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    ></path>
+                  </svg>
                 </div>
-                <!-- Message for empty watch list -->
-                <p id="empty-watch-list-message" class="hidden text-red-500">There is nothing in your watch list</p>
-                <!-- Watchlist items displayed here -->
-                <button id="open-watch-list"
-                    class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Open Watch List
-                </button>
-            </section>
+                <input
+                  type="text"
+                  id="search-input"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Enter movie name"
+                />
+              </div>
+            </form>
+            <span class="ml-3 flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white">My Watch List</span>
+            <div class="pt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
+              <ul id="watch-list-items">
+              </ul>
+            </div>
+          </div>
+        </aside>
 
-            <!-- search area -->
-            <section class="mt-8 flex flex-col items-center" id="movie-search">
-                <h2>Search for a Movie</h2>
-                <div class="flex w-full">
-                    <input type="text" id="search-input" class="w-full border rounded-l-lg py-2 px-4"
-                        placeholder="Enter movie name">
-                    <button id="search-button"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-l-none rounded-r-lg">Search</button>
-                </div>
-                <!-- Centered search results -->
-                <div id="search-results" class="mt-4 flex flex-col items-center">
-                    <div id="search-list"></div>
-                    <!-- results -->
-                </div>
-                <!-- error message when movie not found -->
-                <div id="error-message" style="color: red;"></div>
-            </section>
-            <section id="suggested-movies" class="center">
-                <h2>Our Picks</h2>
-                <div id="suggested-movie-items">
-                    <!-- Make Names Bold -->
+        <main class="p-4 md:ml-64 h-auto pt-20 bg-gray-900">
+          <section>
+          <!-- Centered search results -->
+          <div class="mt-4 flex flex-col">
+            <div id="search-list" class="md:w-3/4"></div>
+            <!-- results -->
+          </div>
+            <!-- error message when movie not found -->
+            <div id="error-message" style="color: red;"></div>
+          </section>
 
-                    <div id="nathan">Nathan</div>
-                    <h2>Shrek (PG)</h2>
-                    <img src="https://m.media-amazon.com/images/M/MV5BOGZhM2FhNTItODAzNi00YjA0LWEyN2UtNjJlYWQzYzU1MDg5L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg"
-                        alt="Movie Poster">
-                    <p>A mean lord exiles fairytale creatures to the swamp of a grumpy ogre, who must go on a quest and
-                        rescue a princess for the lord in order to get his land back.</p>
-                    <p>Rotten Tomatoes: 88%</p>
-                    <a href="https://www.youtube.com/watch?v=CwXOrWvPBPk" target="_blank">Watch Trailer</a>
-                    
-                    <div id="moe">Moe</div>
-                    <h2>Shrek 2 (PG)</h2>
-                    <img src="https://resizing.flixster.com/dAiS2r0bFgqZ7eBWCH_0NuEb0_4=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzY0MjE3ZDU3LWFkNzUtNDAxNC04N2I3LWExNWQzNzFlOWEzNC53ZWJw"
-                        alt="Movie Poster">
-                    <p>Shrek and Fiona travel to the Kingdom of Far Far Away, where Fiona's parents are King and Queen,
-                        to celebrate their marriage. When they arrive, they find they are not as welcome as they thought
-                        they would be.</p>
-                    <p>Rotten Tomatoes: 89%</p>
-                    <a href="https://www.youtube.com/watch?v=xBgSfhp5Fxo" target="_blank">Watch Trailer</a>
-                   
-                    <div id="daniel">Daniel</div>
-                    <h2>Shrek the Third (PG)</h2>
-                    <img src="https://m.media-amazon.com/images/I/71LM14J-eyL._AC_UF894,1000_QL80_.jpg"
-                        alt="Movie Poster">
-                    <p>Reluctantly designated as the heir to the land of Far, Far Away, Shrek hatches a plan to install
-                        the rebellious Artie as the new king while Princess Fiona tries to fend off a coup d'état by the
-                        jilted Prince Charming.</p>
-                    <p>Rotten Tomatoes: 42%</p>
-                    <a href="https://www.youtube.com/watch?v=_MoIr7811Bs" target="_blank">Watch Trailer</a>
-                    
-                    <div id="malia">Malia</div>
-                    <h2>Shrek Forever After (PG)</h2>
-                    <img src="https://m.media-amazon.com/images/I/718yIvZosHL.jpg" alt="Movie Poster">
-                    <p>Rumpelstiltskin tricks a mid-life crisis burdened Shrek into allowing himself to be erased from
-                        existence and cast in a dark alternate timeline where Rumpelstiltskin rules supreme.</p>
-                    <p>Rotten Tomatoes: 57%</p>
-                    <a href="https://www.youtube.com/watch?v=u7__TG7swg0" target="_blank">Watch Trailer</a>
-                    <!-- can add more if needed -->
-                </div>
-            </section>
-            <!-- add more sections if needed -->
+          <section class="md:w-3/4">            
+            <h2 class="text-5xl font-extrabold dark:text-white">Welcome to FilmFinder!</h2>
+            <p class="my-4 text-lg font-normal text-gray-500 dark:text-gray-400">Search for any movie, then add them to your watch list.</p>
+          </section>
+          <section id="suggested-movies" class="md:w-3/4">            
+            <div class="text-3xl font-extrabold dark:text-white mt-8">Our Picks</div>
+            <p class="my-4 text-lg font-normal text-gray-500 dark:text-gray-400">The devs' favorite movies.</p>
+
+            <div class="text-2xl font-extrabold dark:text-white mt-8">Nathan</div>
+            <h2 class="text-1xl font-extrabold dark:text-white">Shrek (PG)</h2>
+            <img class="w-1/2" src="https://m.media-amazon.com/images/M/MV5BOGZhM2FhNTItODAzNi00YjA0LWEyN2UtNjJlYWQzYzU1MDg5L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg" alt="Movie Poster">
+            <p class="font-small text-gray-900 rounded-lg text-white">A mean lord exiles fairytale creatures to the swamp of a grumpy ogre, who must go on a quest and rescue a princess for the lord in order to get his land back.</p>
+            <p class="font-small text-gray-900 rounded-lg text-white">Rotten Tomatoes: 88%</p>
+            <a class="font-small rounded-lg text-blue-500" href="https://www.youtube.com/watch?v=CwXOrWvPBPk" target="_blank">Watch Trailer</a>
+
+            <div class="text-2xl font-extrabold dark:text-white mt-4">Moe</div>
+            <h2 class="text-1xl font-extrabold dark:text-white">Shrek 2 (PG)</h2>
+            <img class="w-1/2" src="https://resizing.flixster.com/dAiS2r0bFgqZ7eBWCH_0NuEb0_4=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzY0MjE3ZDU3LWFkNzUtNDAxNC04N2I3LWExNWQzNzFlOWEzNC53ZWJw" alt="Movie Poster">
+            <p class="font-small rounded-lg text-white">Shrek and Fiona travel to the Kingdom of Far Far Away, where Fiona's parents are King and Queen,
+              to celebrate their marriage. When they arrive, they find they are not as welcome as they thought
+              they would be.</p>
+            <p class="font-small text-gray-900 rounded-lg text-white">Rotten Tomatoes: 89%</p>
+            <a class="font-small rounded-lg text-blue-500" href="https://www.youtube.com/watch?v=xBgSfhp5Fxo" target="_blank">Watch Trailer</a>
+
+            <div class="text-2xl font-extrabold dark:text-white mt-4">Daniel</div>
+            <h2 class="text-1xl font-extrabold dark:text-white">Shrek the Third (PG)</h2>
+            <img class="w-1/2" src="https://m.media-amazon.com/images/I/71LM14J-eyL._AC_UF894,1000_QL80_.jpg" alt="Movie Poster">
+            <p class="font-small rounded-lg text-white">Reluctantly designated as the heir to the land of Far, Far Away, Shrek hatches a plan to install
+              the rebellious Artie as the new king while Princess Fiona tries to fend off a coup d'état by the
+              jilted Prince Charming.</p>
+            <p class="font-small text-gray-900 rounded-lg text-white">Rotten Tomatoes: 42%</p>
+            <a class="font-small rounded-lg text-blue-500" href="https://www.youtube.com/watch?v=_MoIr7811Bs" target="_blank">Watch Trailer</a>
+
+            <div class="text-2xl font-extrabold dark:text-white mt-4">Malia</div>
+            <h2 class="text-1xl font-extrabold dark:text-white">Shrek Forever After (PG)</h2>
+            <img class="w-1/2" src="https://m.media-amazon.com/images/I/718yIvZosHL.jpg" alt="Movie Poster">
+            <p class="font-small rounded-lg text-white">Rumpelstiltskin tricks a mid-life crisis burdened Shrek into allowing himself to be erased from
+              existence and cast in a dark alternate timeline where Rumpelstiltskin rules supreme.</p>
+            <p class="font-small text-gray-900 rounded-lg text-white">Rotten Tomatoes: 57%</p>
+            <a class="font-small rounded-lg text-blue-500" href="https://www.youtube.com/watch?v=u7__TG7swg0" target="_blank">Watch Trailer</a>
+          </section>
         </main>
-    </div>
-    <footer>
-        <p>&copy; 2023 FilmFinder</p>
-    </footer>
+      </div>
+    
+    <!-- Flowbite components for Tailwind (JavaScript) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 
 </body>
-
 </html>
