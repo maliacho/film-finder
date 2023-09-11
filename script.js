@@ -21,7 +21,7 @@ let buttonClickHandler = function () {
 };
 // Search for a movie by name and display results
 let findMovie = function (searchTerm) {
-    let searchApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&s=${searchTerm}`;
+    let searchApiUrl = `https://www.omdbapi.com/?&apikey=${omdbApiKey}&s=${searchTerm}`;
     fetch(searchApiUrl)
         .then(function (response) {
             return response.json();
@@ -183,6 +183,5 @@ searchInputEl.addEventListener("keydown", (event) => {
     }
 });
 
-ourPicks.addEventListener('click', developerFavs);
-searchButtonEl.addEventListener('click', buttonClickHandler);
+
 
