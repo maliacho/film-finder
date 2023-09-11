@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Bar</title>
+</head>
+<body>
+    <form action="#" method="GET">
+        <label for="search-input" class="sr-only">Search</label>
+        <div class="relative">
+            <input
+                type="text"
+                id="search-input"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Enter movie name"
+            />
+        </div>
+    </form>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+
+        searchInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent the form submission
+                // You can add your search functionality here
+                alert('Search for: ' + searchInput.value);
+            }
+        });
+    </script>
+</body>
+</html>

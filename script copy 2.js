@@ -9,6 +9,7 @@ const errorMessageEl = document.querySelector('#error-message');
 const ourPicks = document.querySelector('#suggested-movies');
 //array for storing movies into watchlist
 let watchlist = [];
+let searchResults = [];
 let movies = [];
 
 // search on button click 
@@ -101,9 +102,9 @@ function renderWatchlist() {
 
     // Loop through watchlist and display movies with poster and runtime
     watchlist.forEach((movie) => {
-        const listItem = document.createElement('div');
-        listItem.className = 'watchlist-movie';
-        listItem.innerHTML = `
+        const watchListItem = document.createElement('div');
+        // watchListItem.className = 'watchlist-movie';
+        watchListItem.innerHTML = `
             <img src="${movie.Poster}" alt="${movie.Title} Poster">
             <div class='flex items-center p-2 text-base font-small text-gray-900 rounded-lg text-white'>
                 <p>${movie.Title} (${movie.Year}) ${movie.Rated}</p>
@@ -112,7 +113,26 @@ function renderWatchlist() {
             <button class='flex items-center p-2 text-base font-small text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 text-white group' onclick='removeFromWatchlist("${movie.Title}")'>Remove</button>
             <div class="pt-5 space-y-2 border-t border-gray-200 dark:border-gray-700"></div>
         `;
-        watchListItemsEl.appendChild(listItem);
+        watchListItemsEl.appendChild(watchListItem);
+    });
+}
+
+// Render search results
+function renderSearchResults() {
+
+    // Loop through search results and display movies with all info
+    searchResults.forEach((movie) => {
+        const searchResultItem = document.createElement('div');
+        searchResultItem.innerHTML = `
+            <img src="${movie.Poster}" alt="${movie.Title} Poster">
+            <div class='flex items-center p-2 text-base font-small text-gray-900 rounded-lg text-white'>
+                <p>${movie.Title} (${movie.Year}) ${movie.Rated}</p>
+                <p>Runtime: ${movie.Runtime}</p>
+            </div>
+            <button class='flex items-center p-2 text-base font-small text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 text-white group' onclick='removeFromWatchlist("${movie.Title}")'>Remove</button>
+            <div class="pt-5 space-y-2 border-t border-gray-200 dark:border-gray-700"></div>
+        `;
+        watchListItemsEl.appendChild(searchResultItem);
     });
 }
 

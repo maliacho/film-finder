@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Two Search Bars Example</title>
+</head>
+<body>
+    <input type="text" id="searchBar1" placeholder="Search">
+    
+    <br><br>
+    
+    <input type="text" id="searchBar2" placeholder="Search">
+
+    <div id="searchResults"></div>
+
+    <script>
+        // Function to perform the search when Enter is pressed
+        function performSearch(event, searchBarId) {
+            if (event.key === "Enter") {
+                var searchTerm = document.getElementById(searchBarId).value;
+                // Perform your search logic here, e.g., an alert for demonstration purposes
+                alert("Searching for: " + searchTerm);
+                // You can also update the search results on the page dynamically
+                document.getElementById("searchResults").innerText = "Search results for: " + searchTerm;
+            }
+        }
+
+        // Add event listeners to the input elements
+        document.getElementById("searchBar1").addEventListener("keydown", function(event) {
+            performSearch(event, "searchBar1");
+        });
+
+        document.getElementById("searchBar2").addEventListener("keydown", function(event) {
+            performSearch(event, "searchBar2");
+        });
+    </script>
+</body>
+</html>
