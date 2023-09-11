@@ -14,7 +14,7 @@ Film Finder is a clean, simple web application that allows the user to find info
 
 ## Screenshot
 
-![Screenshot]()
+![Screenshot](./assets/Screenshot 2023-09-11 092752.png)
 
 ## Links
 

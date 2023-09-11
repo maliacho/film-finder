@@ -45,7 +45,7 @@ let findMovie = function (searchTerm) {
                                 console.log(data);
                                 let movie = data;
                                 let searchResultsContainer = document.createElement('div');
-                                searchResultsContainer.className = 'search-result-item';
+                                searchResultsContainer.className = 'search-result-item text-white';
                                 searchResultsContainer.setAttribute('id', `${movie.imdbID}`)
                                 let titleEl = document.createElement('h2');
                                 titleEl.textContent = `${movie.Title} (${movie.Year}) ${movie.Rated}`;
@@ -105,11 +105,12 @@ function renderWatchlist() {
         listItem.className = 'watchlist-movie';
         listItem.innerHTML = `
             <img src="${movie.Poster}" alt="${movie.Title} Poster">
-            <div class="watchlist-details">
+            <div class='flex items-center p-2 text-base font-small text-gray-900 rounded-lg text-white'>
                 <p>${movie.Title} (${movie.Year}) ${movie.Rated}</p>
                 <p>Runtime: ${movie.Runtime}</p>
             </div>
-            <button class='remove-button' onclick='removeFromWatchlist("${movie.Title}")'>Remove</button>
+            <button class='flex items-center p-2 text-base font-small rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 text-white group' onclick='removeFromWatchlist("${movie.Title}")'>Remove</button>
+            <div class="pt-5 space-y-2 border-t border-gray-200 dark:border-gray-700"></div>
         `;
         watchListItemsEl.appendChild(listItem);
     });
@@ -159,6 +160,7 @@ function removeFromWatchlist(movieTitle) {
     renderWatchlist();
 }
 
+/* NOT NEEDED
 // Event listener for the "Open Watch List" button
 watchListButtonEl.addEventListener('click', function () {
     if (watchListItemsEl.classList.contains('hidden')) {
@@ -172,6 +174,7 @@ watchListButtonEl.addEventListener('click', function () {
         watchListButtonEl.classList.remove('bg-red-500', 'hover:bg-red-700'); // removes red button
     }
 });
+*/
 
 // Event listener for pressing Enter to search
 searchInputEl.addEventListener("keydown", (event) => {
@@ -182,5 +185,4 @@ searchInputEl.addEventListener("keydown", (event) => {
 
 ourPicks.addEventListener('click', developerFavs);
 searchButtonEl.addEventListener('click', buttonClickHandler);
-
 
