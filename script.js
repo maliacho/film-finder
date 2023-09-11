@@ -36,7 +36,7 @@ let findMovie = function (searchTerm) {
                 for (let i = 0; i < movies.length; i++) {
                     // Only show movie results
                     if (movies[i].Type === 'movie') {
-                        let imdbIDApiUrl = `http://www.omdbapi.com/?&apikey=${omdbApiKey}&i=${movies[i].imdbID}`
+                        let imdbIDApiUrl = `https://www.omdbapi.com/?&apikey=${omdbApiKey}&i=${movies[i].imdbID}`
                         fetch(imdbIDApiUrl)
                             .then(function (response) {
                                 return response.json();
