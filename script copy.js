@@ -109,7 +109,7 @@ function renderWatchlist() {
                 <p>${movie.Title} (${movie.Year}) ${movie.Rated}</p>
                 <p>Runtime: ${movie.Runtime}</p>
             </div>
-            <button class='flex items-center p-2 text-base font-small text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 text-white group' onclick='removeFromWatchlist("${movie.Title}")'>Remove</button>
+            <button class='flex items-center p-2 text-base font-small rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 text-white group' onclick='removeFromWatchlist("${movie.Title}")'>Remove</button>
             <div class="pt-5 space-y-2 border-t border-gray-200 dark:border-gray-700"></div>
         `;
         watchListItemsEl.appendChild(listItem);
